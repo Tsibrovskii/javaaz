@@ -10,7 +10,7 @@ public class CalculatorTest {
 	@Test
 	public void whenAddShouldSummateIt() {
 		final Calculator calc = new Calculator();
-		calc.Add(1, 1);
+		calc.add(1, 1);
 		final double result = calc.result;
 		Assert.assertThat(result, is(2d));
 	}
@@ -18,7 +18,7 @@ public class CalculatorTest {
 	@Test
 	public void whenSubstructShouldSubstructIt() {
 		final Calculator calc = new Calculator();
-		calc.Substruct(8, 1);
+		calc.substruct(8, 1);
 		final double result = calc.result;
 		Assert.assertThat(result, is(7d));
 	}
@@ -26,7 +26,7 @@ public class CalculatorTest {
 	@Test
 	public void whenDivShouldDivideIt() {
 		final Calculator calc = new Calculator();
-		calc.Div(18, 3);
+		calc.div(18, 3);
 		final double result = calc.result;
 		Assert.assertThat(result, is(6d));
 	}
@@ -34,7 +34,7 @@ public class CalculatorTest {
 	@Test
 	public void whenMultipleShouldMultipleIt() {
 		final Calculator calc = new Calculator();
-		calc.Multiple(2, 5);
+		calc.multiple(2, 5);
 		final double result = calc.result;
 		Assert.assertThat(result, is(10d));
 	}
