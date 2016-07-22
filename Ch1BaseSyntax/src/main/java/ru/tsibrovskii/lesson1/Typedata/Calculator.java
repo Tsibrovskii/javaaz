@@ -4,19 +4,19 @@ public class Calculator {
 
     static double result;
 
-    public void Add(double first, double second) {
+    public void add(double first, double second) {
         result = first + second;
     }
 
-    public void Substruct(double first, double second) {
+    public void substruct(double first, double second) {
         result = first - second;
     }
 
-    public void Div(double first, double second) {
+    public void div(double first, double second) {
         result = first / second;
     }
 
-    public void Multiple(double first, double second) {
+    public void multiple(double first, double second) {
         result = first * second;
     }
 
