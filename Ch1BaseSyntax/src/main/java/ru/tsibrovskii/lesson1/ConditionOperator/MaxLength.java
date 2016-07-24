@@ -4,7 +4,7 @@ public class MaxLength {
 	
 	double max;
 	
-	public double findOfMax(double dist1, double dist2, double dist3) {
+	public double max(double dist1, double dist2, double dist3) {
 		
 		if (dist1 > dist2)
 			max = dist1;
