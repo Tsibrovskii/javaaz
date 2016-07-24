@@ -39,7 +39,7 @@ public class TriangleTest {
 		
 		MaxLength maxLength = new MaxLength();
 		
-		double max = maxLength.findOfMax(dist1, dist2, dist3);
+		double max = maxLength.max(dist1, dist2, dist3);
 		
 		Assert.assertThat(max, is(5d));
 	}
