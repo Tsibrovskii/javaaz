@@ -2,18 +2,18 @@ package ru.tsibrovskii.lesson1.ConditionOperator;
 
 public class MaxLength {
 	
-	double max;
+	double maxLen;
 	
 	public double max(double dist1, double dist2, double dist3) {
 		
 		if (dist1 > dist2)
-			max = dist1;
+			maxLen = dist1;
 		else
-			max = dist2;
+			maxLen = dist2;
 		
-		if (max < dist3)
-			max = dist3;
+		if (maxLen < dist3)
+			maxLen = dist3;
 		
-		return max;		
+		return maxLen;		
 	}
 }
