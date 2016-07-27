@@ -2,7 +2,7 @@ package ru.tsibrovskii.lesson1.Loops;
 
 public class Square {
 	
-	double a, b, c, rez;
+	double a, b, c;
 	
 	float y;
 	
@@ -13,10 +13,8 @@ public class Square {
 	}
 	
 	public float calculate(int x) {
-
-		rez = a * Math.pow(x, 2) + b * x + c; 
-		
-		y = (float) rez;
+	
+		y = (float) (a * Math.pow(x, 2) + b * x + c); 
 					
 		return y;
 		
