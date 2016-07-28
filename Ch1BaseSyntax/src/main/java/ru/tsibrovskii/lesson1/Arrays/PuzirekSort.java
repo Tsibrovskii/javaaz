@@ -4,7 +4,7 @@ public class PuzirekSort {
 
 	public int[] sort(int[] values) {
 		
-		for(int i = 0; i < values.length; i++) {
+		for(int i = 0; i < values.length - 1; i++) {
 			
 			for(int j = values.length - 1; j > i; j--) {		
 			
