@@ -4,8 +4,6 @@ public class Square {
 	
 	double a, b, c;
 	
-	float y;
-	
 	public Square(double a, double b, double c) {
 		this.a = a;
 		this.b = b;
@@ -13,10 +11,8 @@ public class Square {
 	}
 	
 	public float calculate(int x) {
-	
-		y = (float) (a * Math.pow(x, 2) + b * x + c); 
 					
-		return y;
+		return (float) (a * Math.pow(x, 2) + b * x + c);
 		
 	}
 	
