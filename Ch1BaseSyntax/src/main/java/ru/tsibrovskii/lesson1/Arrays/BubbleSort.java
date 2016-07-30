@@ -1,6 +1,6 @@
 package ru.tsibrovskii.lesson1.Arrays;
 
-public class PuzirekSort {
+public class BubbleSort {
 
 	public int[] sort(int[] values) {
 		
