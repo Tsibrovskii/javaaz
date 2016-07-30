@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class PuzirekSortTest {
+public class BubbleSortTest {
 	
 	@Test
 	public void whenGiveNotSortArrayItShouldReturnSortArray() {
@@ -14,8 +14,8 @@ public class PuzirekSortTest {
 		int[] values = new int[] {1, 3, 2, 8, -3, 16, 93, -4};
 		int[] sortvalues = new int[] {-4, -3, 1, 2, 3, 8, 16, 93};
 		
-		PuzirekSort puzirek = new PuzirekSort();
-		int[] rezmassiv = puzirek.sort(values);
+		BubbleSort bubble = new BubbleSort();
+		int[] rezmassiv = bubble.sort(values);
 		
 		Assert.assertThat(rezmassiv, is(sortvalues));
 	}
