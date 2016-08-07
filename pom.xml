@@ -15,5 +15,6 @@
 	
 	<modules>
 		<module>Ch1BaseSyntax</module>
+        <module>Ch2OOP</module>
 	</modules>
 </project>
