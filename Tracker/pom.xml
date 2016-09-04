@@ -1,6 +1,6 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>Ch2OOP</artifactId>
+    <artifactId>Tracker</artifactId>
     <packaging>jar</packaging>
 	
 	<parent>
