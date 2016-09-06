@@ -11,12 +11,15 @@ public class StartUI {
     }
 
     public void init() {
-        String name = input.ask("Please, enter the task's name: ");
         Tracker tracker = new Tracker();
-        tracker.add(new Task(name, "first desc"));
-        for (Item item : tracker.getAll()) {
-            System.out.println(item.getName());
-        }
+        MenuTracker menu = new MenuTracker(this.input, tracker);
+        menu.fillActions();
+
+        do {
+            menu.show();
+            int key = Integer.valueOf(input.ask("Select: "));
+            menu.select(key);
+        } while (!"y".equals(this.input.ask("Exit?(y): ")));
     }
 
     public static void main(String[] args) {
