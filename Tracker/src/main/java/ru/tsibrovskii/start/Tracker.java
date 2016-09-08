@@ -17,7 +17,7 @@ public class Tracker {
     }
 
     public void edit(Item fresh) {
-        for (int index = 0; index != items.length; ++index) { //тут нельзя использовать for each, надо использовать массив
+        for (int index = 0; index != items.length; ++index) { //тут нельзя использовать for each
             Item item = items[index];
             if (item != null && item.getId().equals(fresh.getId())) {
                 items[index] = fresh;
