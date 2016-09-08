@@ -6,5 +6,5 @@ public interface UserAction {
 
     void execute(Input input, Tracker tracker); //это действия из технического задания к трекеру
 
-    String info(); //печатает инфу о том, что событие должно делать
+    String info(); //печатает инфу о том, что метод делает
 }
