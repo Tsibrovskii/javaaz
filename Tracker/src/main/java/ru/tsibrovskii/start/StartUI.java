@@ -4,6 +4,7 @@ import ru.tsibrovskii.models.*;
 
 public class StartUI {
 
+    private int[] ranges = new int[] {0, 1, 2, 3, 4}; // доработать, чтобы значение получалось из menu
     private Input input;
 
     public StartUI(Input input) {
@@ -17,13 +18,12 @@ public class StartUI {
 
         do {
             menu.show();
-            int key = Integer.valueOf(input.ask("Select: "));
-            menu.select(key);
+            menu.select(input.ask("Select: ", ranges));
         } while (!"y".equals(this.input.ask("Exit?(y): ")));
     }
 
     public static void main(String[] args) {
-        Input input = new ConsoleInput();
+        Input input = new ValidateInput();
 
         new StartUI(input).init();
     }
