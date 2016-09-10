@@ -9,6 +9,9 @@ public class ValidateInput extends ConsoleInput {
             try {
                 value = super.ask(question, range); //вызов из родительского класса
                 invalid = false;
+            } catch (MenuOutException moe) {
+                //moe.printStackTrace();
+                System.out.println("Please, select key from menu.");
             } catch (NumberFormatException nfe) {
                 System.out.println("Please, enter validate data again.");
             }
