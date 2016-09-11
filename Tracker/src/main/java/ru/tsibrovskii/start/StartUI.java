@@ -15,6 +15,20 @@ public class StartUI {
         Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker(this.input, tracker);
         menu.fillActions();
+        UserAction deleteAction = new UserAction() {
+            public int key() {
+                return 3;
+            }
+
+            public void execute(Input input, Tracker tracker) {
+                //do
+            }
+
+            public String info() {
+                return "Delete";
+            }
+        } ;
+        menu.addAction(deleteAction);
 
         do {
             menu.show();
