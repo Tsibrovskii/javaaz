@@ -12,7 +12,7 @@ class EditItem implements UserAction {
         String id = input.ask("Please, enter the task's id: ");
         String name = input.ask("Please, enter the task's name: ");
         String desc = input.ask("Please, enter the task's desc: ");
-        Task task = new Task(name, desc);
+        Item task = new Item(name, desc, 1); // заглушка
         task.setId(id);
         tracker.edit(task);
     }
@@ -64,7 +64,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Please, enter the task's name: ");
             String desc = input.ask("Please, enter the task's desc: ");
-            tracker.add(new Task(name, desc));
+            tracker.add(new Item(name, desc, 1)); // заглушка
         }
 
         public String info() {
