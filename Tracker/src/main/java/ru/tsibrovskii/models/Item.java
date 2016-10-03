@@ -2,8 +2,8 @@ package ru.tsibrovskii.models;
 
 /**
  * Класс предназначен для хранения сущности типа "заявка".
- * Приватное поле id предназначено для хранения идентификатора сущности.
- * Публичные поля name, description, create используются для хранения
+ * Приватное поле <b>id</b> предназначено для хранения идентификатора сущности.
+ * Публичные поля <b>name</b>, <b>description</b>, <b>create</b> используются для хранения
  * имени, описания и даты создания сущности, соответственно.
  */
 
@@ -15,14 +15,20 @@ public class Item {
     public String description;
     public long create;
 
+    public Comment[] comments = new Comment[3];
+    private int position = 0;
+
     /**
-     * Конструктор класса по умолчанию.
+     * Конструктор класса <b>Item</b> по умолчанию.
      */
     public Item() {
     }
 
     /**
-     * Конструктор класса с 3-мя входящими параметрами.
+     * Конструктор класса <b>Item</b> с тремя входными параметрами.
+     * @param name имя заявки
+     * @param description описание заявки
+     * @param create дата создания заявки
      */
     public Item(String name, String description, long create) {
         this.name = name;
@@ -31,37 +37,58 @@ public class Item {
     }
 
     /**
-     * Геттер имени заявки.
+     * Метод, возвращающий имя заявки.
+     * @return <b>name</b> (имя заявки)
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Геттер описания заявки.
+     * Метод, возвращающий описание заявки.
+     * @return <b>description</b> (описание заявки)
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Геттер даты создания заявки.
+     * Метод, возвращающий дату создания заявки.
+     * @return <b>create</b> (дата создания заявки)
      */
     public long getCreate() {
         return this.create;
     }
 
     /**
-     * Геттер идентификатора заявки.
+     * Метод, возвращающий <b>id</b> заявки.
+     * @return <b>id</b> (id заявки)
      */
     public String getId() {
         return this.id;
     }
 
     /**
-     * Сеттер идентификатора заявки.
+     * Метод, присваивающий <b>id</b> заявке.
+     * @param id (id заявки)
      */
     public void setId(String id) {
         this.id = id;
+    }
+
+    /**
+     * Метод для добавления комментариев к заявке
+     * @param comment комментарий
+     */
+    public void addComment(Comment comment) {
+        this.comments[position++] = comment;
+    }
+
+    /**
+     * Метод для удаления комментария к заявке
+     * @param pos номер удаляемого комментария
+     */
+    public void delComment(int pos) {
+        comments[pos] = null;
     }
 }
