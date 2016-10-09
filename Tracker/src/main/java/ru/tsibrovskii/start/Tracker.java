@@ -9,8 +9,7 @@ import java.util.*;
  */
 public class Tracker {
 
-    private Item[] items = new Item[10];
-    private int position = 0;
+    private Item[] items = new Item[1];
     private static final Random RN = new Random();
 
     /**
@@ -18,17 +17,31 @@ public class Tracker {
      * @param item заявка
      */
     public void add(Item item) {
-        item.setId(this.generateId());
-        this.items[position++] = item;
+        for (int i = 0; i < this.items.length; i++) {
+            if (this.items[i] == null) {
+                this.items[i] = item;
+                return;
+            }
+        }
+        Item[] bigitems = new Item[this.items.length + 10];
+        for (int j = 0; j < items.length; j++) {
+            bigitems[j] = items[j];
+        }
+        bigitems[items.length] = item;
+        this.items = bigitems;
     }
 
     /**
      * Метод для добавления комментария к заявке
-     * @param item заявка
+     * @param id <b>id</b> заявки
      * @param comment комментарий к заявке
      */
-    public void addComment(Item item, Comment comment) {
-        item.addComment(comment);
+    public void addComment(String id, Comment comment) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i].getId() == id) {
+                items[i].addComment(comment);
+            }
+        }
     }
 
     /**
@@ -74,14 +87,21 @@ public class Tracker {
      * @return <b>Item[]</b> - массив заявок
      */
     public Item[] getAll() {
-        Item[] result = new Item[this.position];
-        for (int index = 0; index != this.position; index++) {
-            result[index] = this.items[index];
+        return this.items;
+    }
+
+    /**
+     * Метод, удаляющий заявку.
+     * @param id <b>id</b> заявки
+     */
+    public void deleteItem(String id) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i].getId() == id) {
+                items[i] = null;
+            }
         }
-        return result;
     }
 
     // Олег, это для меня, сюда не смотри)
-    //добавить методы: редактировать, удалять, поиск по параметру (имя, описание, дата создания);
-    //методы по добавлению комментариев к заявке (добавить модель коммент)
+    //добавить методы: редактировать, поиск по параметру (имя, описание, дата создания);
 }

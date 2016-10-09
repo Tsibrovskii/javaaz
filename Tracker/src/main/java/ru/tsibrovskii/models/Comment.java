@@ -6,4 +6,5 @@ package ru.tsibrovskii.models;
 public class Comment {
 
     public String comment;
+
 }
