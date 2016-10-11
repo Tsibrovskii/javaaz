@@ -15,8 +15,7 @@ public class Item {
     public String description;
     public long create;
 
-    public Comment[] comments = new Comment[3];
-    private int position = 0;
+    public Comment[] comments = new Comment[1];
 
     /**
      * Конструктор класса <b>Item</b> по умолчанию.
@@ -81,8 +80,18 @@ public class Item {
      * @param comment комментарий
      */
     public void addComment(Comment comment) {
-        this.comments[position] = comment;
-        position++;
+        for (int i = 0; i < this.comments.length; i++) {
+            if (this.comments[i] == null) {
+                this.comments[i] = comment;
+                return;
+            }
+        }
+        Comment[] bigcomments = new Comment[this.comments.length + 1];
+        for (int j = 0; j < comments.length; j++) {
+            bigcomments[j] = comments[j];
+        }
+        bigcomments[comments.length] = comment;
+        this.comments = bigcomments;
     }
 
     /**
