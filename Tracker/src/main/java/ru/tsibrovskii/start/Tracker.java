@@ -20,14 +20,16 @@ public class Tracker {
         for (int i = 0; i < this.items.length; i++) {
             if (this.items[i] == null) {
                 this.items[i] = item;
+                this.items[i].setId(generateId());
                 return;
             }
         }
-        Item[] bigitems = new Item[this.items.length + 10];
+        Item[] bigitems = new Item[this.items.length + 1];
         for (int j = 0; j < items.length; j++) {
             bigitems[j] = items[j];
         }
         bigitems[items.length] = item;
+        bigitems[items.length].setId(generateId());
         this.items = bigitems;
     }
 
@@ -36,9 +38,9 @@ public class Tracker {
      * @param id <b>id</b> заявки
      * @param comment комментарий к заявке
      */
-    public void addComment(String id, Comment comment) {
+    public void addComments(String id, Comment comment) {
         for (int i = 0; i < items.length; i++) {
-            if (items[i].getId() == id) {
+            if (items[i] != null && items[i].getId() == id) {
                 items[i].addComment(comment);
             }
         }
@@ -50,8 +52,7 @@ public class Tracker {
      */
     public void edit(Item fresh) {
         for (int index = 0; index != items.length; ++index) {
-            Item item = items[index];
-            if (item != null && item.getId().equals(fresh.getId())) {
+            if (items[index].getId().equals(fresh.getId())) {
                 items[index] = fresh;
                 break;
             }
@@ -87,7 +88,7 @@ public class Tracker {
      * @return <b>Item[]</b> - массив заявок
      */
     public Item[] getAll() {
-        return this.items;
+        return items;
     }
 
     /**
@@ -102,6 +103,27 @@ public class Tracker {
         }
     }
 
-    // Олег, это для меня, сюда не смотри)
-    //добавить методы: редактировать, поиск по параметру (имя, описание, дата создания);
+    /**
+     * Метод, возвращающий массив заявок с учетом "фильтра"
+     * @param desc фильтр
+     * @return массив совпадений по "фильтру"
+     */
+    public Item[] findByDescription(String desc) {
+        int numberOfCoincidence = 0;
+        for (Item item : items) {
+            if (item != null && item.getDescription().contains(desc)) {
+                numberOfCoincidence++;
+            }
+        }
+
+        int pos = 0;
+        Item[] descItem = new Item[numberOfCoincidence];
+        for (Item item : items) {
+            if (item != null && item.getDescription().contains(desc)) {
+                descItem[pos] = item;
+                pos++;
+            }
+        }
+        return descItem;
+    }
 }

@@ -8,34 +8,58 @@ import static org.junit.Assert.*;
 
 public class TrackerTest {
 
-    Item item = new Item("name", "desc", 1L);
+    Item item1 = new Item("name", "desc", 1L);
+    Item item2 = new Item("two", "two", 2L);
     Comment commentarii = new Comment();
-    Item[] resArray;
+    Item[] resArray1;
+    Item[] resArray2;
     Tracker tracker = new Tracker();
 
     @Before
     public void initilize() {
-        commentarii.comment = "one";
-        resArray = new Item[]{item};
-    }
 
+        tracker.add(item1);
+        tracker.add(item2);
+        commentarii.comment = "one";
+        resArray1 = new Item[]{item1, item2};
+        resArray2 = new Item[]{item1};
+    }
 
     @Test
     public void whenGiveItemShouldAddItInTheArray() {
 
-        tracker.add(item);
         Item[] res = tracker.getAll();
 
-        assertArrayEquals(res, resArray);
+        assertArrayEquals(res, resArray1);
     }
-
 
     @Test
     public void whenAddCommentShouldGiveBackItemWithComment() {
 
-        tracker.add(item);
-        tracker.addComment(tracker.getAll()[0].getId(), commentarii);
+        tracker.addComments(tracker.getAll()[0].getId(), commentarii);
 
         Assert.assertThat(tracker.getAll()[0].comments[0], is(commentarii));
+    }
+
+    @Test
+    public void whenGiveIdShouldGiveItemBack() {
+
+        Assert.assertThat(tracker.getAll()[0], is(tracker.findById(tracker.getAll()[0].getId())));
+    }
+
+    @Test
+    public void whenEditItemShoulGiveItBack() {
+
+        Item newItem = new Item("secondName", "secondDesc", 2L);
+        newItem.setId(tracker.getAll()[0].getId());
+        tracker.edit(newItem);
+
+        Assert.assertThat(tracker.findById(newItem.getId()), is(newItem));
+    }
+
+    @Test
+    public void whenGivePartOfDescriptionShouldGiveItemBack() {
+
+        Assert.assertArrayEquals(resArray2, tracker.findByDescription("esc"));
     }
 }

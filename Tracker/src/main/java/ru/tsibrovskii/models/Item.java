@@ -81,7 +81,8 @@ public class Item {
      * @param comment комментарий
      */
     public void addComment(Comment comment) {
-        this.comments[position++] = comment;
+        this.comments[position] = comment;
+        position++;
     }
 
     /**
