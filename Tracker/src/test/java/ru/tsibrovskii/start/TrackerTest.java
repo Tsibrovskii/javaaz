@@ -13,6 +13,8 @@ public class TrackerTest {
     Comment commentarii = new Comment();
     Item[] resArray1;
     Item[] resArray2;
+    Item[] resArray3;
+    Item[] resArray4;
     Tracker tracker = new Tracker();
 
     @Before
@@ -23,6 +25,8 @@ public class TrackerTest {
         commentarii.comment = "one";
         resArray1 = new Item[]{item1, item2};
         resArray2 = new Item[]{item1};
+        resArray3 = new Item[]{item1, null};
+        resArray4 = new Item[]{null};
     }
 
     @Test
@@ -61,5 +65,14 @@ public class TrackerTest {
     public void whenGivePartOfDescriptionShouldGiveItemBack() {
 
         Assert.assertArrayEquals(resArray2, tracker.findByDescription("esc"));
+    }
+
+    @Test
+    public void whenGiveIdShouldDeleteItemAndGiveItemsBack() {
+
+        tracker.deleteItem(item2.getId());
+
+        Assert.assertThat(tracker.getAll()[1], is(resArray4[0]));
+
     }
 }
