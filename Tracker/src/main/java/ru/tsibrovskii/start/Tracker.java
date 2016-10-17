@@ -97,7 +97,7 @@ public class Tracker {
      */
     public void deleteItem(String id) {
         for (int i = 0; i < items.length; i++) {
-            if (items[i].getId() == id) {
+            if (items[i].getId().equals(id)) {
                 items[i] = null;
             }
         }

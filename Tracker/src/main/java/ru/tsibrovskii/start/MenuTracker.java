@@ -9,16 +9,16 @@ class EditItem implements UserAction {
     }
 
     public void execute(Input input, Tracker tracker) {
-        String id = input.ask("Please, enter the task's id: ");
-        String name = input.ask("Please, enter the task's name: ");
-        String desc = input.ask("Please, enter the task's desc: ");
+        String id = input.ask("Please, enter the item's id: ");
+        String name = input.ask("Please, enter the item's name: ");
+        String desc = input.ask("Please, enter the item's desc: ");
         Item item = new Item(name, desc, 1); // заглушка
         item.setId(id);
         tracker.edit(item);
     }
 
     public String info() {
-        return String.format("%s. %s", this.key(), "Edit the new item");  //форматор
+        return String.format("%s. %s", this.key(), "Edit the item");  //форматор
     }
 }
 

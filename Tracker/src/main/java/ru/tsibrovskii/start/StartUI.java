@@ -29,7 +29,7 @@ public class StartUI {
     }
 
     /**
-     * Метод выполнения действия над заявкой.
+     * Метод для выполнения действия над заявкой.
      */
     public void init() {
         Tracker tracker = new Tracker();
