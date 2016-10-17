@@ -11,9 +11,9 @@ public class Item {
 
     private String id;
 
-    public String name;
-    public String description;
-    public long create;
+    private String name;
+    private String description;
+    private long create;
 
     public Comment[] comments = new Comment[1];
 

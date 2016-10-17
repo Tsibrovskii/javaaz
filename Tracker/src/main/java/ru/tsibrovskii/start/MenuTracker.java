@@ -26,7 +26,7 @@ public class MenuTracker {
 
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[4];
+    private UserAction[] actions = new UserAction[6];
     private int position = 0;
 
     /**
@@ -56,6 +56,8 @@ public class MenuTracker {
         this.actions[position++] = new MenuTracker.ShowItems();
         this.actions[position++] = new EditItem();
         this.actions[position++] = this.new DeleteItem();
+        this.actions[position++] = this.new FindItem();
+        this.actions[position++] = this.new AddComment();
     }
 
     /**
@@ -95,18 +97,53 @@ public class MenuTracker {
     }
 
     private class DeleteItem implements UserAction {
-            public int key() {
-                return 3;
-            }
+        public int key() {
+            return 3;
+        }
 
-            public void execute(Input input, Tracker tracker) {
-                String id = input.ask("Please, enter the item's id: ");
-                tracker.deleteItem(id);
-            }
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Please, enter the item's id: ");
+            tracker.deleteItem(id);
+        }
 
-            public String info() {
-                return String.format("%s. %s", this.key(), "Delete item");
+        public String info() {
+            return String.format("%s. %s", this.key(), "Delete item");
+        }
+    }
+
+    private class FindItem implements UserAction {
+        public int key() {
+            return 4;
+        }
+
+        public void execute(Input input, Tracker tracker) {
+            String desc = input.ask("Please, enter part of the item's description: ");
+            Item[] foundItem = tracker.findByDescription(desc);
+            for (Item item : foundItem) {
+                System.out.println(item.getName());
             }
+        }
+
+        public String info() {
+            return String.format("%s. %s", this.key(), "Find item");
+        }
+    }
+
+    private class AddComment implements UserAction {
+        public int key() {
+            return 5;
+        }
+
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Please, enter the item's id: ");
+            Comment comm = new Comment();
+            comm.comment = input.ask("Please, enter the item's commentarii: ");
+            tracker.addComments(id, comm);
+        }
+
+        public String info() {
+            return String.format("%s. %s", this.key(), "Add commentarii");
+        }
     }
 
     private static class ShowItems implements UserAction {
@@ -117,7 +154,13 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.getAll()) {
                 if (item != null) {
-                    System.out.println(String.format("%s. %s", item.getId(), item.getName()));
+                    System.out.print(String.format("%s. %s. %s. ", item.getId(), item.getName(), item.getDescription()));
+                    for (Comment comm : item.comments) {
+                        if (comm != null) {
+                            System.out.print(String.format("%s. ", comm.comment));
+                        }
+                    }
+                    System.out.println();
                 }
             }
         }

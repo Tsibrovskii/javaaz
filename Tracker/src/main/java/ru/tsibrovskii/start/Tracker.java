@@ -40,7 +40,7 @@ public class Tracker {
      */
     public void addComments(String id, Comment comment) {
         for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getId() == id) {
+            if (items[i] != null && items[i].getId().equals(id)) {
                 items[i].addComment(comment);
             }
         }
