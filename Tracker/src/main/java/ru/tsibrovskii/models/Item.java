@@ -1,5 +1,8 @@
 package ru.tsibrovskii.models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * Класс предназначен для хранения сущности типа "заявка".
  * Приватное поле <b>id</b> предназначено для хранения идентификатора сущности.
@@ -16,6 +19,17 @@ public class Item {
     private long create;
 
     public Comment[] comments = new Comment[1];
+
+    public DateFormat TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    /**
+     * Переопределение метода <b>toString</b>
+     * @return полное описание заявки
+     */
+    @Override
+    public String toString() {
+        return "name: " + name + " description: " + description + " date and time: " + TIMESTAMP.format(create) + " id: " + id + " comments: ";
+    }
 
     /**
      * Конструктор класса <b>Item</b> по умолчанию.

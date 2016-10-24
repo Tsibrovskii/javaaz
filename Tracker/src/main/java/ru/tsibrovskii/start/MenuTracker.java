@@ -12,7 +12,7 @@ class EditItem implements UserAction {
         String id = input.ask("Please, enter the item's id: ");
         String name = input.ask("Please, enter the item's name: ");
         String desc = input.ask("Please, enter the item's desc: ");
-        Item item = new Item(name, desc, 1);
+        Item item = new Item(name, desc, System.currentTimeMillis());
         item.setId(id);
         tracker.edit(item);
     }
@@ -88,7 +88,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Please, enter the task's name: ");
             String desc = input.ask("Please, enter the task's desc: ");
-            tracker.add(new Item(name, desc, 1));
+            tracker.add(new Item(name, desc, System.currentTimeMillis()));
         }
 
         public String info() {
@@ -154,10 +154,13 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.getAll()) {
                 if (item != null) {
-                    System.out.print(String.format("%s. %s. %s. ", item.getId(), item.getName(), item.getDescription()));
+                    System.out.print(item.toString());
                     for (Comment comm : item.comments) {
                         if (comm != null) {
-                            System.out.print(String.format("%s. ", comm.comment));
+                            System.out.print(comm.comment);
+                            if (!comm.equals(item.comments[item.comments.length - 1])) {
+                                System.out.print("; ");
+                            }
                         }
                     }
                     System.out.println();
