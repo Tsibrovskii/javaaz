@@ -7,7 +7,7 @@ public class ValidateInput extends ConsoleInput {
         int value = -1;
         do {
             try {
-                value = super.ask(question, range); //вызов из родительского класса
+                value = super.ask(question, range);
                 invalid = false;
             } catch (MenuOutException moe) {
                 //moe.printStackTrace();

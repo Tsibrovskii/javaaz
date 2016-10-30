@@ -20,7 +20,7 @@ public class Item {
 
     public Comment[] comments = new Comment[1];
 
-    public DateFormat TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private DateFormat TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * Переопределение метода <b>toString</b>
