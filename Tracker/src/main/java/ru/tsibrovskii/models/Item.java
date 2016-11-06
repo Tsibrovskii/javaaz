@@ -108,11 +108,4 @@ public class Item {
         this.comments = bigcomments;
     }
 
-    /**
-     * Метод для удаления комментария к заявке
-     * @param pos номер удаляемого комментария
-     */
-    public void delComment(int pos) {
-        comments[pos] = null;
-    }
 }
