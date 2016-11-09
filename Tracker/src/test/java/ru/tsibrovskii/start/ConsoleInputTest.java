@@ -21,7 +21,7 @@ public class ConsoleInputTest {
     @Test
     public void whenTakeQuestionAndRangeOfNumbersShouldReturnKey() {
 
-        String inp = "2";
+        String inp = "3";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(inp.getBytes());
         System.setIn(inputStream);
 
