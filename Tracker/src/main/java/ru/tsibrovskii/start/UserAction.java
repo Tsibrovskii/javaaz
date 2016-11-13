@@ -1,10 +1,25 @@
 package ru.tsibrovskii.start;
 
+/**
+ * Интерфейс действий, которые должна выполнять программа в зависимости от выбора пользователя.
+ */
 public interface UserAction {
 
+    /**
+     * Метод, возвращающий ключ.
+     * @return ключ.
+     */
     int key();
 
-    void execute(Input input, Tracker tracker); //это действия из технического задания к трекеру
+    /**
+     * Метод, выполнящий действие над заявкой.
+     * @param input - ввод пользователя, tracker - хранилище заявок.
+     */
+    void execute(Input input, Tracker tracker);
 
-    String info(); //печатает инфу о том, что метод делает
+    /**
+     * Метод, печатающий подсказку на экране.
+     * @return подсказка.
+     */
+    String info();
 }

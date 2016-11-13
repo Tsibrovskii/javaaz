@@ -2,6 +2,9 @@ package ru.tsibrovskii.start;
 
 import java.util.*;
 
+/**
+ * Класс для работы с вводом от пользователя.
+ */
 public class ConsoleInput implements Input {
 
     private Scanner scanner = new Scanner(System.in);

@@ -9,25 +9,10 @@ import static org.hamcrest.core.Is.is;
 
 public class ValidateInputTest {
 
-    @Test (expected = MenuOutException.class)
-    public void whenTakeQuestionAndRangeOfNumbersShouldReturnMenuOutException() {
-
-        String inp = "7";
-
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(inp.getBytes());
-        System.setIn(inputStream);
-
-        ValidateInput validate = new ValidateInput();
-
-        int[] range = new int[]{1, 2, 3};
-
-        validate.ask("Question", range);
-    }
-
     @Test
-    public void whenTakeQuestionAndRangeOfNumbersShouldReturnNumberFormatException() {
+    public void whenTakeQuestionAndRangeOfNumbersShouldReturnValue() {
 
-        String inp = "a";
+        String inp = "2";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(inp.getBytes());
         System.setIn(inputStream);
@@ -36,10 +21,9 @@ public class ValidateInputTest {
 
         int[] range = new int[]{1, 2, 3};
 
-        try {
-            validate.ask("Question", range);
-        } catch (NumberFormatException nfe) {
-            Assert.assertThat(nfe.getMessage(), is(""));
-        }
+        int i = Integer.valueOf(inp);
+
+        Assert.assertEquals(validate.ask("Question", range), i);
+
     }
 }

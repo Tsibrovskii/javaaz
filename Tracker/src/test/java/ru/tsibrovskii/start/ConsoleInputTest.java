@@ -34,9 +34,24 @@ public class ConsoleInputTest {
     }
 
     @Test (expected = MenuOutException.class)
-    public void whenTakeQuestionAndRangeOfNumbersShouldReturnException() {
+    public void whenTakeQuestionAndRangeOfNumbersShouldReturnMenuOutException() {
 
         String inp = "8";
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(inp.getBytes());
+        System.setIn(inputStream);
+
+        ConsoleInput console = new ConsoleInput();
+
+        int[] range = new int[]{1, 2, 3};
+
+        console.ask("Question", range);
+    }
+
+    @Test (expected = RuntimeException.class)
+    public void whenTakeQuestionAndRangeOfNumbersShouldReturnNumberFormatException() {
+
+        String inp = "a";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(inp.getBytes());
         System.setIn(inputStream);

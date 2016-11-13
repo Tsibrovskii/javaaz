@@ -5,6 +5,10 @@ package ru.tsibrovskii.start;
  */
 public class MenuOutException extends RuntimeException {
 
+    /**
+     * Конструктор класса MenuOutException.
+     * @param msg текст, вводимый пользователем.
+     */
     public MenuOutException(String msg) {
         super(msg);
     }

@@ -3,6 +3,9 @@ package ru.tsibrovskii.start;
 import org.junit.*;
 import ru.tsibrovskii.models.*;
 
+import java.util.Random;
+import java.util.concurrent.SynchronousQueue;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -16,6 +19,7 @@ public class TrackerTest {
     Item[] resArray3;
     Item[] resArray4;
     Tracker tracker = new Tracker();
+    private static final Random RN = new Random();
 
     @Before
     public void initilize() {
@@ -75,4 +79,5 @@ public class TrackerTest {
         Assert.assertThat(tracker.getAll()[1], is(resArray4[0]));
 
     }
+
 }

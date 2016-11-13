@@ -2,12 +2,23 @@ package ru.tsibrovskii.start;
 
 import ru.tsibrovskii.models.*;
 
+/**
+ * Класс, предназначенный для редактирования заявки.
+ */
 class EditItem implements UserAction {
 
+    /**
+     * Метод, возвращающий ключ.
+     * @return ключ.
+     */
     public int key() {
         return 2;
     }
 
+    /**
+     * Метод, редактирующий заявку.
+     * @param input - ввод пользователя, tracker - хранилище заявок.
+     */
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("Please, enter the item's id: ");
         String name = input.ask("Please, enter the item's name: ");
@@ -17,11 +28,18 @@ class EditItem implements UserAction {
         tracker.edit(item);
     }
 
+    /**
+     * Метод, печатающий подсказку на экране.
+     * @return подсказка.
+     */
     public String info() {
-        return String.format("%s. %s", this.key(), "Edit the item");  //форматор
+        return String.format("%s. %s", this.key(), "Edit the item");
     }
 }
 
+/**
+ * Класс, предназначенный для хранения и выполнения действий над заявками.
+ */
 public class MenuTracker {
 
     private Input input;
@@ -35,6 +53,10 @@ public class MenuTracker {
     public MenuTracker() {
     }
 
+    /**
+     * Конструктор класса <b>MenuTracker</b>
+     * @param input ввод пользователя, tracker - хранилище заявок.
+     */
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
@@ -68,10 +90,17 @@ public class MenuTracker {
         return actions;
     }
 
+    /**
+     * Метод, добавляющий действие в массив действий.
+     * @param action действие.
+     */
     public void addAction(UserAction action) {
         this.actions[position++] = action;
     }
 
+    /**
+     * Метод, выводящий на экран меню действий.
+     */
     public void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
@@ -80,42 +109,86 @@ public class MenuTracker {
         }
     }
 
+    /**
+     * Класс, предназначенный для добавления заявки.
+     */
     private class AddItem implements UserAction {
+
+        /**
+         * Метод, возвращающий ключ.
+         * @return ключ.
+         */
         public int key() {
             return 0;
         }
 
+        /**
+         * Метод, добавляющий заявку.
+         * @param input ввод пользователя, tracker - хранилище заявок.
+         */
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Please, enter the task's name: ");
             String desc = input.ask("Please, enter the task's desc: ");
             tracker.add(new Item(name, desc, System.currentTimeMillis()));
         }
 
+        /**
+         * Метод, печатающий подсказку на экране.
+         * @return подсказка.
+         */
         public String info() {
-            return String.format("%s. %s", this.key(), "Add the new item");  //форматор
+            return String.format("%s. %s", this.key(), "Add the new item");
         }
     }
 
+    /**
+     * Класс, предназначенный для удаления заявки.
+     */
     private class DeleteItem implements UserAction {
+
+        /**
+         * Метод, возвращающий ключ.
+         * @return ключ.
+         */
         public int key() {
             return 3;
         }
 
+        /**
+         * Метод, удаляющий заявку.
+         * @param input ввод пользователя, tracker - хранилище заявок.
+         */
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Please, enter the item's id: ");
             tracker.deleteItem(id);
         }
 
+        /**
+         * Метод, печатающий подсказку на экране.
+         * @return подсказка.
+         */
         public String info() {
             return String.format("%s. %s", this.key(), "Delete item");
         }
     }
 
+    /**
+     * Класс, предназначенный для поиска заявки.
+     */
     private class FindItem implements UserAction {
+
+        /**
+         * Метод, возвращающий ключ.
+         * @return ключ.
+         */
         public int key() {
             return 4;
         }
 
+        /**
+         * Метод, выполняющий поиск заявки.
+         * @param input ввод пользователя, tracker - хранилище заявок.
+         */
         public void execute(Input input, Tracker tracker) {
             String desc = input.ask("Please, enter part of the item's description: ");
             Item[] foundItem = tracker.findByDescription(desc);
@@ -124,16 +197,32 @@ public class MenuTracker {
             }
         }
 
+        /**
+         * Метод, печатающий подсказку на экране.
+         * @return подсказка.
+         */
         public String info() {
             return String.format("%s. %s", this.key(), "Find item");
         }
     }
 
+    /**
+     * Класс, предназначенный для добавления комментария к заявке.
+     */
     private class AddComment implements UserAction {
+
+        /**
+         * Метод, возвращающий ключ.
+         * @return ключ.
+         */
         public int key() {
             return 5;
         }
 
+        /**
+         * Метод, добавляющий комментарий к заявке.
+         * @param input ввод пользователя, tracker - хранилище заявок.
+         */
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Please, enter the item's id: ");
             Comment comm = new Comment();
@@ -141,16 +230,32 @@ public class MenuTracker {
             tracker.addComments(id, comm);
         }
 
+        /**
+         * Метод, печатающий подсказку на экране.
+         * @return подсказка.
+         */
         public String info() {
             return String.format("%s. %s", this.key(), "Add commentarii");
         }
     }
 
+    /**
+     * Класс, предназначенный для вывода на экран списка заявок.
+     */
     private static class ShowItems implements UserAction {
+
+        /**
+         * Метод, возвращающий ключ.
+         * @return ключ.
+         */
         public int key() {
             return 1;
         }
 
+        /**
+         * Метод, печатающий список заявок на экран.
+         * @param input ввод пользователя, tracker - хранилище заявок.
+         */
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.getAll()) {
                 if (item != null) {
@@ -168,8 +273,12 @@ public class MenuTracker {
             }
         }
 
+        /**
+         * Метод, печатающий подсказку на экране.
+         * @return подсказка.
+         */
         public String info() {
-            return String.format("%s. %s", this.key(), "Show all items");  //форматор???
+            return String.format("%s. %s", this.key(), "Show all items");
         }
     }
 }
