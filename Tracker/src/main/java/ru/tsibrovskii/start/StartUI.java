@@ -1,7 +1,5 @@
 package ru.tsibrovskii.start;
 
-import ru.tsibrovskii.models.*;
-
 /**
  * Класс предназначен для работы с классом <b>Tracker</b>
  */
@@ -9,6 +7,7 @@ public class StartUI {
 
     private int[] ranges;
     private Input input;
+    private Tracker tracker;
 
     /**
      * Метод заполнения массива <b>ranges</b>.
@@ -24,16 +23,16 @@ public class StartUI {
      * Конструктор класса StartUI с входным параметром (вводом пользователя)
      * @param input ввод пользователя (целое число).
      */
-    public StartUI(Input input) {
+    public StartUI(Input input, Tracker tracker) {
         this.input = input;
+        this.tracker = tracker;
     }
 
     /**
      * Метод для выполнения действия над заявкой.
      */
     public void init() {
-        Tracker tracker = new Tracker();
-        MenuTracker menu = new MenuTracker(this.input, tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
         setRanges();
 
@@ -50,7 +49,8 @@ public class StartUI {
      */
     public static void main(String[] args) {
         Input input = new ValidateInput();
+        Tracker tracker = new Tracker();
 
-        new StartUI(input).init();
+        new StartUI(input, tracker).init();
     }
 }

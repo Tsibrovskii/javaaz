@@ -28,7 +28,7 @@ public class Item {
      */
     @Override
     public String toString() {
-        return "name: " + name + " description: " + description + " date and time: " + TIMESTAMP.format(create) + " id: " + id + " comments: ";
+        return String.format("%s: %s %s: %s %s: %s %s: %s %s: ", "name", name, "description", description, "date and time", TIMESTAMP.format(create), "id", id, "comments");
     }
 
     /**
