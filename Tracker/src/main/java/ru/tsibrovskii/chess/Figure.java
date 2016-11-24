@@ -1,9 +1,24 @@
 package ru.tsibrovskii.chess;
 
-public interface Figure {
+/**
+ * Абстрактный класс для любой шахматной фигуры.
+ */
+public abstract class Figure {
+
+    final Cell position;
 
     /**
-     * Метод для перемещение фигуры.
+     * Конструктор по умолчанию
+     * @param position позиция
      */
-    //void move();
+    Figure(Cell position) {
+        this.position = position;
+    }
+
+    /**
+     * Метод, предназначенный для передвижения фигуры.
+     * @param dist клетка назначения.
+     * @return массив пройденных ячеек, либо исключение.
+     */
+    abstract Cell[] way(Cell dist);
 }
