@@ -3,24 +3,47 @@ package ru.tsibrovskii.chess;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.is;
+
 public class BoardTest {
+
+    @Test
+    public void whenGiveFigureShouldReturnInBack() {
+
+        Board board = new Board();
+        board.fillBoardbyNull();
+
+        int x = 3;
+        int y = 3;
+        Cell cellSource = new Cell(x, y);
+
+        Figure elephant = new Elephant(cellSource);
+
+        board.fillBoard(elephant);
+
+        Assert.assertThat(board.figures[x][y], is(elephant));
+
+    }
 
     @Test (expected = FigureNotFoundException.class)
     public void whenGivePositionWithoutFigureShouldThrowException() {
 
         Board board = new Board();
+        board.fillBoardbyNull();
 
-        int x = 3;
-        int y = 3;
         int x1 = 4;
         int y1 = 4;
-
-        Cell cell = new Cell(x, y);
         Cell cellSource = new Cell(x1, y1);
-        board.figures = new Figure[1];
-        board.figures[0] = new Elephant(cell);
 
-        board.move(cellSource, cell);
+        Figure elephant = new Elephant(cellSource);
+
+        board.fillBoard(elephant);
+
+        int x2 = 3;
+        int y2 = 3;
+        Cell cellDist = new Cell(x2, y2);
+
+        board.move(cellDist, cellDist);
 
     }
 
@@ -28,18 +51,21 @@ public class BoardTest {
     public void whenGiveWrongDistShouldThrowException() {
 
         Board board = new Board();
+        board.fillBoardbyNull();
 
-        int x = 3;
-        int y = 3;
         int x1 = 4;
-        int y1 = 5;
-
-        Cell cell = new Cell(x, y);
+        int y1 = 4;
         Cell cellSource = new Cell(x1, y1);
-        board.figures = new Figure[1];
-        board.figures[0] = new Elephant(cell);
 
-        board.move(cell, cellSource);
+        Figure elephant = new Elephant(cellSource);
+
+        board.fillBoard(elephant);
+
+        int x2 = 3;
+        int y2 = 1;
+        Cell cellDist = new Cell(x2, y2);
+
+        board.move(cellSource, cellDist);
 
     }
 
@@ -47,22 +73,54 @@ public class BoardTest {
     public void whenGiveWayShouldThrowException() {
 
         Board board = new Board();
+        board.fillBoardbyNull();
 
-        int x = 3;
-        int y = 3;
-        int x1 = 5;
-        int y1 = 5;
-        int x2 = 4;
-        int y2 = 4;
-
-        Cell cell = new Cell(x, y);
+        int x1 = 4;
+        int y1 = 4;
         Cell cellSource = new Cell(x1, y1);
-        Cell cellOccupied = new Cell(x2, y2);
-        board.figures = new Figure[2];
-        board.figures[0] = new Elephant(cell);
-        board.figures[1] = new Elephant(cellOccupied);
 
-        board.move(cell, cellSource);
+        Figure elephant = new Elephant(cellSource);
+
+        board.fillBoard(elephant);
+
+        int x2 = 3;
+        int y2 = 3;
+        Cell cellOccupiedFigure = new Cell(x2, y2);
+
+        Figure occupiedFigure = new Elephant(cellOccupiedFigure);
+
+        board.fillBoard(occupiedFigure);
+
+        int x3 = 1;
+        int y3 = 1;
+        Cell cellDist = new Cell(x3, y3);
+
+        board.move(cellSource, cellDist);
 
     }
+
+    @Test
+    public void whenGiveFigureAndDistinationShouldMoveIt() {
+
+        Board board = new Board();
+        board.fillBoardbyNull();
+
+        int x1 = 7;
+        int y1 = 7;
+        Cell cellSource = new Cell(x1, y1);
+
+        Figure elephant = new Elephant(cellSource);
+
+        board.fillBoard(elephant);
+
+        int x2 = 3;
+        int y2 = 3;
+        Cell cellDist = new Cell(x2, y2);
+
+        board.move(cellSource, cellDist);
+
+        Assert.assertThat(board.figures[x2][y2], is(elephant));
+        Assert.assertTrue(board.figures[x1][y1] == null);
+    }
+
 }
