@@ -11,7 +11,7 @@ public class BoardTest {
     public void whenGiveFigureShouldReturnInBack() {
 
         Board board = new Board();
-        board.fillBoardbyNull();
+        board.fillBoardByNull();
 
         int x = 3;
         int y = 3;
@@ -29,7 +29,7 @@ public class BoardTest {
     public void whenGivePositionWithoutFigureShouldThrowException() {
 
         Board board = new Board();
-        board.fillBoardbyNull();
+        board.fillBoardByNull();
 
         int x1 = 4;
         int y1 = 4;
@@ -51,7 +51,7 @@ public class BoardTest {
     public void whenGiveWrongDistShouldThrowException() {
 
         Board board = new Board();
-        board.fillBoardbyNull();
+        board.fillBoardByNull();
 
         int x1 = 4;
         int y1 = 4;
@@ -73,7 +73,7 @@ public class BoardTest {
     public void whenGiveWayShouldThrowException() {
 
         Board board = new Board();
-        board.fillBoardbyNull();
+        board.fillBoardByNull();
 
         int x1 = 4;
         int y1 = 4;
@@ -103,7 +103,7 @@ public class BoardTest {
     public void whenGiveFigureAndDistinationShouldMoveIt() {
 
         Board board = new Board();
-        board.fillBoardbyNull();
+        board.fillBoardByNull();
 
         int x1 = 7;
         int y1 = 7;
