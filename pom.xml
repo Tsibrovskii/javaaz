@@ -22,5 +22,6 @@
 	<modules>
 		<module>Ch1BaseSyntax</module>
         <module>Tracker</module>
+        <module>Ch3IO</module>
 	</modules>
 </project>
