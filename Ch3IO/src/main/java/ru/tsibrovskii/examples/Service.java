@@ -20,9 +20,12 @@ public class Service {
         int i;
         try {
             while ((i = in.read()) != -1) {
-                if (i % 2 == 0) {
+                if (Integer.valueOf(i) % 2 == 0) {
                     result = true;
                 }
+                /*if (i % 2 == 0) {
+                    result = true;
+                }*/
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,18 +40,28 @@ public class Service {
      */
     public static void main(String[] args) throws IOException {
 
-        Scanner scanner = new Scanner(System.in);
         Service service = new Service();
 
-        ByteArrayOutputStream bOutput = new ByteArrayOutputStream(3);
+        /*ByteArrayOutputStream bOutput = new ByteArrayOutputStream(1);
+
+        Scanner scanner = new Scanner(System.in);
         while (bOutput.size()!= 3) {
             String number = scanner.next();
             bOutput.write(number.getBytes());
         }
-        byte b [] = bOutput.toByteArray();
+        byte b [] = bOutput.toByteArray();*/
 
-        ByteArrayInputStream bInput = new ByteArrayInputStream(b);
+        ByteArrayInputStream bInput = new ByteArrayInputStream("2".getBytes());
+        //System.setIn(bInput);
         System.out.println(service.isNumber(bInput));
 
+        /*for (byte bb : b) {
+            System.out.println((char) bb);
+        }
+        while (scanner.hasNext()) {
+            //System.out.print(scanner.next());
+            System.out.println();
+            System.out.println(scanner.nextLine().length());
+        }*/
     }
 }
