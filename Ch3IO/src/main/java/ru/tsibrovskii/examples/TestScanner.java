@@ -16,7 +16,7 @@ public class TestScanner {
         int in;
         String in1;
         String in2;
-        while (sc.hasNext() == true) {
+        while (sc.hasNext()) {
             if (sc.hasNextInt()) {
                 in = sc.nextInt();
                 System.out.println(in * 2);
