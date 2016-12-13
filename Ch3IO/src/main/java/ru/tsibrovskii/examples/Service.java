@@ -1,7 +1,9 @@
 package ru.tsibrovskii.examples;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Сервис для работы с байтовым потоком.
@@ -20,16 +22,22 @@ public class Service {
      * @throws IOException исключение.
      */
     public boolean isNumber(InputStream in) throws IOException {
-        int i;
-        try {
-            while ((i = in.read()) != -1) {
-                if (Integer.valueOf(i) % 2 == 0) {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        String str;
+
+        while ((str = reader.readLine()) != null) {
+            try {
+                int i = Integer.valueOf(str);
+                if (i % 2 == 0) {
                     result = true;
+                    break;
                 }
+            } catch (NumberFormatException e) {
+                continue;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
         return result;
     }
 }

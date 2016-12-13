@@ -6,40 +6,45 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import static org.hamcrest.CoreMatchers.is;
+
 /**
  * Тестовый класс.
  */
 public class ServiceTest {
 
     /**
-     * Тестовый метод, должен вернуть false, когда вводим 1.
+     * Тестовый метод, должен вернуть true, когда вводим четное число.
      * @throws IOException исключение.
      */
     @Test
-    public void whenGiveOneShouldReturnFalse() throws IOException {
+    public void whenGiveDividedBy2ShouldReturnTrue() throws IOException {
 
         Service service = new Service();
 
-        ByteArrayInputStream bInput = new ByteArrayInputStream("1".getBytes());
+        ByteArrayInputStream bInput = new ByteArrayInputStream("2\r\n3".getBytes());
         boolean res = service.isNumber(bInput);
+        boolean assertValue = true;
 
-        Assert.assertFalse(res);
+        Assert.assertThat(res, is(assertValue));
     }
 
     /**
-     * Тестовый метод, должен вернуть true, когда вводим 2.
+     * Тестовый метод, должен вернуть false, когда вводим нечетное число.
      * @throws IOException исключение.
      */
     @Test
-    public void whenGiveTwoShouldReturnFalse() throws IOException {
+    public void whenGiveNotDividedBy2ShouldReturnTrue() throws IOException {
 
         Service service = new Service();
 
-        ByteArrayInputStream bInput = new ByteArrayInputStream("2".getBytes());
+        ByteArrayInputStream bInput = new ByteArrayInputStream("3\r\n3".getBytes());
         boolean res = service.isNumber(bInput);
+        boolean assertValue = false;
 
-        Assert.assertTrue(res);
+        Assert.assertThat(res, is(assertValue));
     }
+
 
 
 }
