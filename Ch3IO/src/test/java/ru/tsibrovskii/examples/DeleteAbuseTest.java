@@ -3,7 +3,9 @@ package ru.tsibrovskii.examples;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -22,27 +24,14 @@ public class DeleteAbuseTest {
         DeleteAbuse deleteAbuse = new DeleteAbuse();
 
         String[] abuse = new String[] {"one", "four"};
+        ByteArrayInputStream in = new ByteArrayInputStream("onetwothreefourfiveonetwo\r\nonefourfive".getBytes());
 
-        ByteArrayOutputStream bOutput = new ByteArrayOutputStream(5);
-        bOutput.write("one".getBytes());
-        bOutput.write("two".getBytes());
-        bOutput.write("three".getBytes());
-        bOutput.write("four".getBytes());
-        bOutput.write("five".getBytes());
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-        byte[] b = bOutput.toByteArray();
-
-        InputStream in = new ByteArrayInputStream(b);
-        OutputStream out = new ByteArrayOutputStream();
-        OutputStream outTest = new ByteArrayOutputStream(3);
-        outTest.write("two".getBytes());
-        outTest.write("three".getBytes());
-        outTest.write("five".getBytes());
+        String result = "twothreefivetwofive";
 
         deleteAbuse.dropAbuse(in, out, abuse);
 
-        Assert.assertThat(out, is(outTest));
-
-
+        Assert.assertThat(out.toString(), is(result));
     }
 }

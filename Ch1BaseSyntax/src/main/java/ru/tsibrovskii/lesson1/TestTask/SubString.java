@@ -28,7 +28,7 @@ public class SubString {
 							rezult = true;
 						}
 						k++;
-					}
+					} else break;
 				}						
 			}
 		}
