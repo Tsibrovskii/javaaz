@@ -33,23 +33,10 @@ public class DeleteAbuse {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
         while ((str = reader.readLine()) != null) {
-            do {
-                isContainAbuse = false;
-                for (String abuseElement : abuse) {
-                    if (str.contains(abuseElement)) {
-                        isContainAbuse = true;
-                        int beginIndex = str.indexOf(abuseElement);
-                        String concatStr = str.substring(beginIndex + abuseElement.length(), str.length());
-                        str = str.substring(0, beginIndex);
-                        str = str.concat(concatStr);
-                    }
-                }
-                if (!isContainAbuse) {
-                    for (int i = 0; i < str.length(); i++) {
-                        out.write(str.substring(i, i + 1).getBytes());
-                    }
-                }
-            } while (isContainAbuse);
+            for (String abuseElement : abuse) {
+                str = str.replaceAll(abuseElement, "");
+            }
+            out.write(str.getBytes());
         }
     }
 }
