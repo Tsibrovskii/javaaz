@@ -90,6 +90,11 @@ public class ConsoleChat {
         return str;
     }
 
+    /**
+     * Main метод.
+     * @param args аргументы.
+     * @throws IOException исключение.
+     */
     public static void main(String[] args) throws IOException {
         ConsoleChat chat = new ConsoleChat();
         chat.consoleChat();
