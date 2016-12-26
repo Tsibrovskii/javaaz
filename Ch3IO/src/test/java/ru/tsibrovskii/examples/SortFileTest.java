@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -22,20 +23,41 @@ public class SortFileTest {
 
         SortFile sr = new SortFile();
 
-        String fileName = "C:\\projects\\javaaz\\Ch3IO\\random.txt";
-        String fileName2 = "C:\\projects\\javaaz\\Ch3IO\\random2.txt";
-        String fileTest = "C:\\projects\\javaaz\\Ch3IO\\randomRes.txt";
-        File f1 = new File(fileName);
-        File f2 = new File(fileName2);
-        File fRes = new File(fileTest);
-        sr.sort(f1, f2);
+        String separator = System.getProperty("line.separator");
 
-        //Assert.assertEquals(f1, fRes);
-        /*
-        File file = new File("./../");
+        File beforeSort = new File("./../random.txt");
+        File afterSort = new File("./random2.txt");
+
+        sr.sort(beforeSort, afterSort);
+
+        String str;
+        String res = "";
+
+        int forTestCounter = 0;
+
+        File ss = new File("./random2.txt");
+
+        try (RandomAccessFile raf = new RandomAccessFile(ss, "rw")) {
+            while ((str = raf.readLine()) != null) {
+                forTestCounter++;
+                if (forTestCounter != 1) {
+                    res = String.format("%s%s%s", res, separator, str);
+                } else {
+                    res = String.format("%s%s", res, str);
+                }
+            }
+        }
+
+        String result = String.format("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", "1", separator, "22", separator,
+                "333", separator, "4444", separator, "55555", separator, "666666", separator, "7777777", separator,
+                "88888888", separator, "999999999");
+
+        Assert.assertEquals(res, result);
+
+        /*File file = new File("./../");
         for (File sub: file.listFiles()) {
             System.out.println(sub);
-        }
-         */
+        }*/
+
     }
 }
