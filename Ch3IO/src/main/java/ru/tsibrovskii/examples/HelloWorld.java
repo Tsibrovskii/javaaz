@@ -10,6 +10,6 @@ public class HelloWorld {
      * @param args входящие аргументы
      */
     public static void main(String[] args) {
-        System.out.print("Hello, World!!!");
+        System.out.print("Hello, World!!!!!");
     }
 }
