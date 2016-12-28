@@ -14,80 +14,76 @@ public class ConsoleChat {
 
     String separator = System.getProperty("line.separator");
 
+    String[] arrayOfAnswers;
+
+    final String STOP = "stop";
+    final String CONTINUE = "continue";
+    final String FINISH = "finish";
+
     /**
      * Метод для работы с консольным чатом.
      * @throws IOException исключение.
      */
     public void consoleChat() throws IOException {
+
+        formationOfArrayFromFile();
+
         String str;
         String answerFromFile = null;
         boolean isNotStopped = true;
+
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
              RandomAccessFile log = new RandomAccessFile(new File("./log.txt"), "rw")) {
             do {
                 str = br.readLine();
-                if (str.equals("stop")) {
+                if (STOP.equals(str)) {
                     isNotStopped = false;
                 }
-                if (str.equals("continue")) {
+                if (CONTINUE.equals(str)) {
                     isNotStopped = true;
                 }
-                if (str.equals("finish")) {
+                if (FINISH.equals(str)) {
                     log.writeBytes(String.format("%s%s", str, separator));
                     break;
                 }
                 if (isNotStopped) {
-                    answerFromFile = answerToChat(randomNumber(lenghtOfAnswersFile()));
+                    answerFromFile = arrayOfAnswers[randomNumber(arrayOfAnswers.length)];
                     System.out.println(answerFromFile);
                 }
                 log.writeBytes(String.format("%s%s", str, separator));
-                if (answerFromFile != null && isNotStopped) {
+                if (isNotStopped) {
                     log.writeBytes(String.format("%s%s", answerFromFile, separator));
                 }
-            } while (!str.equals("finish"));
+            } while (!FINISH.equals(str));
         }
     }
 
     /**
-     * Метод определения количества возможных ответов.
-     * @return количество возможных ответов.
+     * Метод формирования массива строк из файла.
      * @throws IOException исключение.
      */
-    public int lenghtOfAnswersFile() throws IOException {
+    public void formationOfArrayFromFile() throws IOException {
         int i = 0;
-        String str;
         try (RandomAccessFile raf = new RandomAccessFile(new File("./answers.txt"), "r")){
-            while ((str = raf.readLine()) != null) {
+            while (raf.readLine() != null) {
                 i++;
             }
+
+            arrayOfAnswers = new String[i];
+            raf.seek(0);
+            for (int j = 0; j < i; j++) {
+                arrayOfAnswers[j] = raf.readLine();
+            }
         }
-        return i;
     }
 
     /**
-     * Метод генерации случайного числа из диапазона от 0 до i.
+     * Метод генерации случайного числа из диапазона от 0 до i-1.
      * @param i верхняя граница диапазона.
      * @return случайное число.
      */
     public int randomNumber(int i) {
-        Random rn = new Random();
-        return rn.nextInt(i);
-    }
-
-    /**
-     * Метод, возвращающий ответ в зависимости от сгенерированного числа.
-     * @param i порядковый номер ответа из файла ответов.
-     * @return ответ.
-     * @throws IOException исключение.
-     */
-    public String answerToChat(int i) throws IOException {
-        String str = "";
-        try (RandomAccessFile raf = new RandomAccessFile(new File("./answers.txt"), "r")){
-            for (int j = 0; j < i; j++) {
-                str = raf.readLine();
-            }
-        }
-        return str;
+        return new Random().nextInt(i);
     }
 
     /**

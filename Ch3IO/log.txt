@@ -1,0 +1,9 @@
+hello
+answer1
+world
+answer2
+stop
+stop
+continue
+answer3
+finish
