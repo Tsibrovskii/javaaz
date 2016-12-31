@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import com.google.common.base.Joiner;
+
 /**
  * Тестовый класс.
  */
@@ -58,16 +60,9 @@ public class ConsoleChatTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String resultStr = String.format("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
-                "hello", separator,
-                "answer1", separator,
-                "world", separator,
-                "answer2", separator,
-                "stop", separator,
-                "stop", separator,
-                "continue", separator,
-                "answer3", separator,
-                "finish");
+
+        String resultStr = Joiner.on(separator).join("hello", "answer1", "world", "answer2", "stop", "stop",
+                "continue", "answer3", "finish");
 
         Assert.assertEquals(res, resultStr);
     }
