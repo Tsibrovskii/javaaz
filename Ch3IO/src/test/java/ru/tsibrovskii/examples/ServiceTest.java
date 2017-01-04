@@ -34,7 +34,7 @@ public class ServiceTest {
      * @throws IOException исключение.
      */
     @Test
-    public void whenGiveNotDividedBy2ShouldReturnTrue() throws IOException {
+    public void whenGiveNotDividedBy2ShouldReturnFalse() throws IOException {
 
         Service service = new Service();
 
