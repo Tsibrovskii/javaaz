@@ -1,6 +1,8 @@
 package ru.tsibrovskii.examples.socket;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Utf8;
+import org.apache.commons.io.output.WriterOutputStream;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -73,10 +75,12 @@ public class Server {
             System.out.println("Подключение состоялось.");
 
             InputStream socketInputStream = socket.getInputStream();
-            OutputStream socketOutputStrem = socket.getOutputStream();
+            OutputStream socketOutputStream = socket.getOutputStream();
 
             DataInputStream in = new DataInputStream(socketInputStream);
-            DataOutputStream out = new DataOutputStream(socketOutputStrem);
+            DataOutputStream out = new DataOutputStream(socketOutputStream);
+
+            WriterOutputStream wr = new WriterOutputStream(socketOutputStream, "UTF-8");
 
             Server srv = new Server();
             String choice = Joiner.on(srv.separator).join(

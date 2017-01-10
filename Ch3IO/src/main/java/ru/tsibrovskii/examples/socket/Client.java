@@ -28,10 +28,10 @@ public class Client {
             Socket socket = new Socket(inetAddress, serverPort);
 
             InputStream socketInputStream = socket.getInputStream();
-            OutputStream socketOutputStrem = socket.getOutputStream();
+            OutputStream socketOutputStream = socket.getOutputStream();
 
             DataInputStream in = new DataInputStream(socketInputStream);
-            DataOutputStream out = new DataOutputStream(socketOutputStrem);
+            DataOutputStream out = new DataOutputStream(socketOutputStream);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             String str = in.readUTF();
