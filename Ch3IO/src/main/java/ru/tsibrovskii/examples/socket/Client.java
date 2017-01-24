@@ -1,11 +1,9 @@
 package ru.tsibrovskii.examples.socket;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import org.apache.commons.io.input.ReaderInputStream;
+import org.apache.commons.io.output.WriterOutputStream;
+
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -20,28 +18,25 @@ public class Client {
      */
     public static void main(String[] args) {
         int serverPort = 7777;
-        String ipAdress = "127.0.0.1";
+        String ipAddress = "127.0.0.1";
 
         try {
-            InetAddress inetAddress = InetAddress.getByName(ipAdress);
+            InetAddress inetAddress = InetAddress.getByName(ipAddress);
             System.out.println("Подключаемся к серверу: " + serverPort);
             Socket socket = new Socket(inetAddress, serverPort);
 
             InputStream socketInputStream = socket.getInputStream();
             OutputStream socketOutputStream = socket.getOutputStream();
 
-            DataInputStream in = new DataInputStream(socketInputStream);
-            DataOutputStream out = new DataOutputStream(socketOutputStream);
+            ReaderInputStream rr = new ReaderInputStream(new InputStreamReader(socketInputStream), "UTF-8");
+            WriterOutputStream wr = new WriterOutputStream(new OutputStreamWriter(socketOutputStream), "UTF-8");
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            String str = in.readUTF();
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+            BufferedReader br = new BufferedReader(new InputStreamReader(rr));
             while (true) {
-                System.out.println(str);
-                String answerToServer = reader.readLine();
-                out.writeUTF(answerToServer);
-                System.out.println(in.readUTF());
-                out.flush();
+                System.out.println(br.readLine());
+                wr.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();

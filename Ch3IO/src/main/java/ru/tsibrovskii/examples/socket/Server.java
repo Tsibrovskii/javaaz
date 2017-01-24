@@ -2,13 +2,10 @@ package ru.tsibrovskii.examples.socket;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Utf8;
+import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.commons.io.output.WriterOutputStream;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Path;
@@ -77,10 +74,8 @@ public class Server {
             InputStream socketInputStream = socket.getInputStream();
             OutputStream socketOutputStream = socket.getOutputStream();
 
-            DataInputStream in = new DataInputStream(socketInputStream);
-            DataOutputStream out = new DataOutputStream(socketOutputStream);
-
-            WriterOutputStream wr = new WriterOutputStream(socketOutputStream, "UTF-8");
+            ReaderInputStream rr = new ReaderInputStream(new InputStreamReader(socketInputStream), "UTF-8");
+            WriterOutputStream wr = new WriterOutputStream(new OutputStreamWriter(socketOutputStream), "UTF-8");
 
             Server srv = new Server();
             String choice = Joiner.on(srv.separator).join(
@@ -89,16 +84,11 @@ public class Server {
                     "Выберите действие: ");
 
             while (true) {
-                out.writeUTF(choice);
-                if ("1".equals(in.readUTF())) {
-                    out.writeUTF(srv.returnMainCatalogue());
+                wr.write(choice.getBytes());
+                if ("1".equals(rr.read())) {
+                    wr.write(srv.returnMainCatalogue().getBytes());
                 }
-                if ("2".equals(in.readUTF())) {
-                    out.writeUTF("Введите имя папки:");
-                    String answer = in.readUTF();
-                    out.writeUTF(srv.returnCatalogue(answer));
-                }
-                out.flush();
+                wr.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();
