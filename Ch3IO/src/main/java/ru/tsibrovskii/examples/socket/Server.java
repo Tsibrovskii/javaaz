@@ -74,8 +74,12 @@ public class Server {
             InputStream socketInputStream = socket.getInputStream();
             OutputStream socketOutputStream = socket.getOutputStream();
 
-            ReaderInputStream rr = new ReaderInputStream(new InputStreamReader(socketInputStream), "UTF-8");
-            WriterOutputStream wr = new WriterOutputStream(new OutputStreamWriter(socketOutputStream), "UTF-8");
+            ReaderInputStream readerStream = new ReaderInputStream(new InputStreamReader(socketInputStream), "UTF-8");
+            WriterOutputStream writerStream = new WriterOutputStream(new OutputStreamWriter(socketOutputStream), "UTF-8");
+
+            PrintWriter pWriter = new PrintWriter(writerStream, true);
+
+            BufferedReader bufReader = new BufferedReader(new InputStreamReader(readerStream));
 
             Server srv = new Server();
             String choice = Joiner.on(srv.separator).join(
@@ -84,11 +88,11 @@ public class Server {
                     "Выберите действие: ");
 
             while (true) {
-                wr.write(choice.getBytes());
-                if ("1".equals(rr.read())) {
-                    wr.write(srv.returnMainCatalogue().getBytes());
+                pWriter.write(choice);
+                if ("1".equals(bufReader.readLine())) {
+                    pWriter.write(srv.returnMainCatalogue());
                 }
-                wr.flush();
+                pWriter.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();

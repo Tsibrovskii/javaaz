@@ -28,15 +28,22 @@ public class Client {
             InputStream socketInputStream = socket.getInputStream();
             OutputStream socketOutputStream = socket.getOutputStream();
 
-            ReaderInputStream rr = new ReaderInputStream(new InputStreamReader(socketInputStream), "UTF-8");
-            WriterOutputStream wr = new WriterOutputStream(new OutputStreamWriter(socketOutputStream), "UTF-8");
+            ReaderInputStream readerStream = new ReaderInputStream(new InputStreamReader(socketInputStream), "UTF-8");
+            WriterOutputStream writerStream = new WriterOutputStream(new OutputStreamWriter(socketOutputStream), "UTF-8");
 
-            //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            PrintWriter pWriter = new PrintWriter(writerStream, true);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(rr));
+            BufferedReader bufReader = new BufferedReader(new InputStreamReader(readerStream));
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
             while (true) {
-                System.out.println(br.readLine());
-                wr.flush();
+                String str;
+                while ((str = bufReader.readLine()) != null) {
+                    System.out.println(str);
+                }
+                pWriter.write(reader.readLine());
+                pWriter.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();
