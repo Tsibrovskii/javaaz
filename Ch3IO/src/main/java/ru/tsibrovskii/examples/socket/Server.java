@@ -23,6 +23,7 @@ public class Server {
 
     /**
      * Метод возврата списка корневого каталога.
+     *
      * @return список корневого каталога.
      */
     public String returnMainCatalogue() {
@@ -87,12 +88,22 @@ public class Server {
                     "2. Получение списка подкаталога.",
                     "Выберите действие: ");
 
+            /*String str = bufReader.readLine();
+            if (str != null) {
+                System.out.println(str);
+            }*/
+
             while (true) {
-                pWriter.write(choice);
+                if ("Get the menu".equals(bufReader.readLine())) {
+                    pWriter.write(choice);
+                    pWriter.flush();
+                }
                 if ("1".equals(bufReader.readLine())) {
                     pWriter.write(srv.returnMainCatalogue());
+                    pWriter.flush();
                 }
-                pWriter.flush();
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -37,7 +37,12 @@ public class Client {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+            /*pWriter.write("Hello Server");
+            pWriter.flush();
+            socket.close();*/
             while (true) {
+                pWriter.write("Get the menu");
+                pWriter.flush();
                 String str;
                 while ((str = bufReader.readLine()) != null) {
                     System.out.println(str);
