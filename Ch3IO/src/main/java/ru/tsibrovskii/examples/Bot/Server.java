@@ -18,7 +18,7 @@ public class Server {
      * Метод, возвращающий ответ от сервера.
      * @return ответ от сервера.
      */
-    private String choiseAnswer() {
+    private String choiceAnswer() {
         i++;
         if (i > 4) {
             i = 0;
@@ -48,7 +48,7 @@ public class Server {
                     out.println();
                     out.flush();
                 } else {
-                    out.println(server.choiseAnswer());
+                    out.println(server.choiceAnswer());
                     out.println();
                     out.flush();
                 }
