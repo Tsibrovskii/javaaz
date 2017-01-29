@@ -25,13 +25,20 @@ public class Client {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner console = new Scanner(System.in);
-            String str;
             do {
-                out.println("Hello oracle");
+                String str;
+                String answer = console.nextLine().toString();
+                if ("exit".equals(answer)) {
+                    out.println(answer);
+                    out.flush();
+                    break;
+                }
+                out.println(answer);
+                out.flush();
                 while (!(str = in.readLine()).isEmpty()) {
                     System.out.println(str);
                 }
-            } while (str != "stop");
+            } while (true);
         } catch (Exception e) {
             e.printStackTrace();
         }
