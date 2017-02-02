@@ -12,14 +12,13 @@ import java.util.Scanner;
  */
 public class Client {
 
-    /**
-     * Основной метод класса.
-     * @param args массив аргументов.
-     */
-    public static void main(String[] args) {
-        int port = 7777;
-        String ip = "127.0.0.1";
+    int port = 7777;
+    String ip = "127.0.0.1";
 
+    /**
+     * Метод для работы клиента.
+     */
+    public void clientMethod() {
         try {
             Socket socket = new Socket(InetAddress.getByName(ip), port);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -27,14 +26,12 @@ public class Client {
             Scanner console = new Scanner(System.in);
             do {
                 String str;
-                String answer = console.nextLine().toString();
+                String answer = console.nextLine();
                 if ("exit".equals(answer)) {
                     out.println(answer);
-                    out.flush();
                     break;
                 }
                 out.println(answer);
-                out.flush();
                 while (!(str = in.readLine()).isEmpty()) {
                     System.out.println(str);
                 }
@@ -42,5 +39,13 @@ public class Client {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Основной метод класса.
+     * @param args массив аргументов.
+     */
+    public static void main(String[] args) {
+        new Client().clientMethod();
     }
 }
