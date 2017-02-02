@@ -33,7 +33,6 @@ public class Server {
     public void serverMethod() {
         try {
             Socket socket = new ServerSocket(port).accept();
-            System.out.println("hasdf");
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String ask;
