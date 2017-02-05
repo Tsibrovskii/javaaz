@@ -31,8 +31,17 @@ public class ClientTest {
 
         String inputString = Joiner.on(LN).join("hello", "exit");
 
+        Socket socket = mock(Socket.class);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream(inputString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+        when(socket.getOutputStream()).thenReturn(out);
+        when(socket.getInputStream()).thenReturn(in);
+
+        Client client = new Client(socket);
+
         String test = reader.readLine();
         String str;
         while ((str = reader.readLine()) != null) {
