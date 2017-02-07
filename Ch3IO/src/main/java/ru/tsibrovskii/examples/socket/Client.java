@@ -1,57 +1,60 @@
 package ru.tsibrovskii.examples.socket;
 
-import org.apache.commons.io.input.ReaderInputStream;
-import org.apache.commons.io.output.WriterOutputStream;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Класс для работы клиента.
  */
 public class Client {
 
+    private final Socket socket;
+    private static final int port = 7777;
+    private static final String ip = "127.0.0.1";
+
     /**
-     * Основной метод.
-     * @param args аргументы.
+     * Конструктора класса Клиента.
+     * @param socket сокет.
      */
-    public static void main(String[] args) {
-        int serverPort = 7777;
-        String ipAddress = "127.0.0.1";
+    public Client(Socket socket) {
+        this.socket = socket;
+    }
 
+    /**
+     * Метод для работы клиента.
+     */
+    public void clientMethod() {
         try {
-            InetAddress inetAddress = InetAddress.getByName(ipAddress);
-            System.out.println("Подключаемся к серверу: " + serverPort);
-            Socket socket = new Socket(inetAddress, serverPort);
-
-            InputStream socketInputStream = socket.getInputStream();
-            OutputStream socketOutputStream = socket.getOutputStream();
-
-            ReaderInputStream readerStream = new ReaderInputStream(new InputStreamReader(socketInputStream), "UTF-8");
-            WriterOutputStream writerStream = new WriterOutputStream(new OutputStreamWriter(socketOutputStream), "UTF-8");
-
-            PrintWriter pWriter = new PrintWriter(writerStream, true);
-
-            BufferedReader bufReader = new BufferedReader(new InputStreamReader(readerStream));
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-            /*pWriter.write("Hello Server");
-            pWriter.flush();
-            socket.close();*/
-            while (true) {
-                pWriter.write("Get the menu");
-                pWriter.flush();
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Scanner console = new Scanner(System.in);
+            do {
                 String str;
-                while ((str = bufReader.readLine()) != null) {
+                while (!(str = in.readLine()).isEmpty()) {
                     System.out.println(str);
                 }
-                pWriter.write(reader.readLine());
-                pWriter.flush();
-            }
+                out.println(console.nextLine());
+            } while (true);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Основной метод класса.
+     * @param args массив аргументов.
+     */
+    public static void main(String[] args) throws IOException {
+        Settings settings = new Settings();
+        settings.load(Settings.class.getClassLoader().getResourceAsStream("app.properties"));
+        try (final Socket socket = new Socket(InetAddress.getByName(settings.getValue("ip")),
+                Integer.valueOf(settings.getValue("port")))) {
+            new Client(socket).clientMethod();
         }
     }
 }
