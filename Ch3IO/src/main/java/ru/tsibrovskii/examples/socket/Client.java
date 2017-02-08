@@ -35,7 +35,8 @@ public class Client {
             Scanner console = new Scanner(System.in);
             do {
                 String str;
-                while (!(str = in.readLine()).isEmpty()) {
+                //while (!(str = in.readLine()).isEmpty()) {
+                while ((str = in.readLine()) != null) {
                     System.out.println(str);
                 }
                 out.println(console.nextLine());

@@ -2,7 +2,10 @@ package ru.tsibrovskii.examples.socket;
 
 import com.google.common.base.Joiner;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -22,8 +25,6 @@ public class Server {
         this.socket = socket;
     }
 
-
-
     /**
      * Метод для работы сервера.
      */
@@ -36,7 +37,7 @@ public class Server {
             do {
                 System.out.println("wait command ...");
                 out.println(choice);
-                out.println();
+                //out.println();
                 String ask = in.readLine();
                 System.out.println(ask);
                 if (ask.equals("1")) {
