@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 public class Catalogue {
 
     private final String LN = System.getProperty("line.separator");
+    private String parentCatalogue;
 
     /**
      * Метод, возвращающий список корневого каталога.
@@ -20,12 +21,36 @@ public class Catalogue {
         settings.load(Settings.class.getClassLoader().getResourceAsStream("app.properties"));
         String str = null;
         Path ph = Paths.get(settings.getValue("home.path"));
-        File file = new File(ph.toString());
+        parentCatalogue = ph.toString();
+        int length = parentCatalogue.length();
+        File file = new File(parentCatalogue);
         for (File sub : file.listFiles()) {
+            String subStr = sub.toString().substring(length + 1);
             if (str == null) {
-                str = sub.toString();
+                str = subStr;
             } else {
-                str = String.format("%s%s%s", str, LN, sub);
+                str = String.format("%s%s%s", str, LN, subStr);
+            }
+        }
+        return str;
+    }
+
+    /**
+     * Метод, возвращающий список папок и файлов каталога.
+     * @param catalogue каталог.
+     * @return список каталога.
+     */
+    public String returnCatalogue(String catalogue) {
+        this.parentCatalogue = String.format("%s\\%s", this.parentCatalogue, catalogue);
+        int length = parentCatalogue.length();
+        File file = new File(parentCatalogue);
+        String str = null;
+        for (File sub : file.listFiles()) {
+            String subStr = sub.toString().substring(length + 1);
+            if (str == null) {
+                str = subStr;
+            } else {
+                str = String.format("%s%s%s", str, LN, subStr);
             }
         }
         return str;

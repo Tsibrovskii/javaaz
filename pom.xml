@@ -39,5 +39,6 @@
 		<module>Ch1BaseSyntax</module>
         <module>Tracker</module>
         <module>Ch3IO</module>
+        <module>Ch4OOD</module>
 	</modules>
 </project>

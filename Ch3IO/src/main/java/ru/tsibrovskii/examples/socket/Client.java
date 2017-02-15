@@ -14,8 +14,6 @@ import java.util.Scanner;
 public class Client {
 
     private final Socket socket;
-    private static final int port = 7777;
-    private static final String ip = "127.0.0.1";
 
     /**
      * Конструктора класса Клиента.
@@ -35,8 +33,7 @@ public class Client {
             Scanner console = new Scanner(System.in);
             do {
                 String str;
-                //while (!(str = in.readLine()).isEmpty()) {
-                while ((str = in.readLine()) != null) {
+                while (!(str = in.readLine()).isEmpty()) {
                     System.out.println(str);
                 }
                 out.println(console.nextLine());

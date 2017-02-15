@@ -32,18 +32,25 @@ public class Server {
         try {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String choice = Joiner.on(LN).join("1. Список корневого каталога", "todo");
+            String choice = Joiner.on(LN).join("1. Список корневого каталога.", "2. Перейти в подкаталог.");
             Catalogue catalogue = new Catalogue();
             do {
                 System.out.println("wait command ...");
                 out.println(choice);
-                //out.println();
+                out.println();
                 String ask = in.readLine();
                 System.out.println(ask);
                 if (ask.equals("1")) {
                     out.println(catalogue.returnMainCatalogue());
-                    out.println();
                 }
+                if (ask.equals("2")) {
+                    out.println("Введите имя подкаталога.");
+                    out.println();
+                    out.println(catalogue.returnCatalogue(in.readLine()));
+                }
+                out.println("Нажмите любую клавишу для продолжения.");
+                out.println();
+                in.readLine();
             } while (true);
         } catch (Exception e) {
             e.printStackTrace();
