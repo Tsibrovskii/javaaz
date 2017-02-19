@@ -16,6 +16,7 @@ public class Client {
 
     /**
      * Конструктора класса Клиента.
+     *
      * @param socket сокет.
      */
     public Client(Socket socket) {
@@ -39,17 +40,10 @@ public class Client {
                     String newFileName = in.readLine();
                     String catalogue = in.readLine();
                     long length = Long.valueOf(in.readLine());
-                    File fileCopy = new File(String.format("%s\\%s",catalogue, newFileName));
+                    File fileCopy = new File(String.format("%s\\%s", catalogue, newFileName));
                     try (RandomAccessFile raf = new RandomAccessFile(fileCopy, "rw")) {
-                        int i = 0;
                         while (raf.length() != length) {
-                            if (i == 0) {
-                                raf.writeBytes(in.readLine());
-                            } else {
-                                raf.writeBytes(LN);
-                                raf.writeBytes(in.readLine());
-                            }
-                            i++;
+                            raf.write(socket.getInputStream().read());
                         }
                     }
                     while (!(str = in.readLine()).isEmpty()) {
@@ -68,6 +62,7 @@ public class Client {
 
     /**
      * Основной метод класса.
+     *
      * @param args массив аргументов.
      */
     public static void main(String[] args) throws IOException {

@@ -74,9 +74,8 @@ public class Server {
                     out.println(copyFileInSocket.lengthOfFile());
                     int i;
                     while ((i = copyFileInSocket.copyFile()) != -1) {
-                        out.write(i);
+                        socket.getOutputStream().write(i);
                     }
-                    out.println();
                 }
                 if (ask.equals("6")) {
                     out.println("exit");
