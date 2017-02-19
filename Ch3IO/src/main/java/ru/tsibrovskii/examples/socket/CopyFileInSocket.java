@@ -12,6 +12,11 @@ public class CopyFileInSocket {
     private String catalogue;
     private String fileName;
 
+    /**
+     * Конструктор класса.
+     * @param catalogue текущий каталог.
+     * @param fileName файл для копирования.
+     */
     public CopyFileInSocket(String catalogue, String fileName) {
         this.catalogue = catalogue;
         this.fileName = fileName;
@@ -19,8 +24,12 @@ public class CopyFileInSocket {
 
     private long s = 0;
 
+    /**
+     * Метод для копирования файла.
+     * @return байт.
+     * @throws IOException исключение.
+     */
     public int copyFile() throws IOException {
-
         String fileToCopy = String.format("%s\\%s", this.catalogue, this.fileName);
         File fileCopy = new File(fileToCopy);
         int i;

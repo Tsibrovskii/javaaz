@@ -37,8 +37,9 @@ public class Client {
                 }
                 if ("copy".equals(str)) {
                     String newFileName = in.readLine();
+                    String catalogue = in.readLine();
                     long length = Long.valueOf(in.readLine());
-                    File fileCopy = new File(String.format(".\\%s",newFileName));
+                    File fileCopy = new File(String.format("%s\\%s",catalogue, newFileName));
                     try (RandomAccessFile raf = new RandomAccessFile(fileCopy, "rw")) {
                         int i = 0;
                         while (raf.length() != length) {

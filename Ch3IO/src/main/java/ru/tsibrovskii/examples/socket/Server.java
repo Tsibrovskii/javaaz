@@ -36,8 +36,9 @@ public class Server {
                     "1. Список корневого каталога.",
                     "2. Перейти в подкаталог.",
                     "3. Перейти в родительский каталог.",
-                    "4. Скопировать файл.",
-                    "5. Завершение работы.");
+                    "4. Получить текущий каталог.",
+                    "5. Скопировать файл.",
+                    "6. Завершение работы.");
             Catalogue catalogue = new Catalogue();
             do {
                 System.out.println("wait command ...");
@@ -57,6 +58,9 @@ public class Server {
                     out.println(catalogue.returnParentCatalogue());
                 }
                 if (ask.equals("4")) {
+                    out.println(catalogue.listOfCatalogue());
+                }
+                if (ask.equals("5")) {
                     out.println("Введите имя файла, который вы хотите скопировать, в текущем каталоге.");
                     out.println();
                     String fileName = in.readLine();
@@ -65,6 +69,7 @@ public class Server {
                     String newFileName = in.readLine();
                     out.println("copy");
                     out.println(newFileName);
+                    out.println(catalogue.getCurrentCatalogue());
                     CopyFileInSocket copyFileInSocket = new CopyFileInSocket(catalogue.getCurrentCatalogue(), fileName);
                     out.println(copyFileInSocket.lengthOfFile());
                     int i;
@@ -73,7 +78,7 @@ public class Server {
                     }
                     out.println();
                 }
-                if (ask.equals("5")) {
+                if (ask.equals("6")) {
                     out.println("exit");
                     break;
                 }
