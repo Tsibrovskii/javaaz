@@ -1,9 +1,6 @@
 package ru.tsibrovskii.examples.socket;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
@@ -14,6 +11,8 @@ import java.util.Scanner;
 public class Client {
 
     private final Socket socket;
+
+    private final String LN = System.getProperty("line.separator");
 
     /**
      * Конструктора класса Клиента.
@@ -33,8 +32,31 @@ public class Client {
             Scanner console = new Scanner(System.in);
             do {
                 String str;
-                while (!(str = in.readLine()).isEmpty()) {
+                while (!(str = in.readLine()).isEmpty() && !"exit".equals(str) && !"copy".equals(str)) {
                     System.out.println(str);
+                }
+                if ("copy".equals(str)) {
+                    String newFileName = in.readLine();
+                    long length = Long.valueOf(in.readLine());
+                    File fileCopy = new File(String.format(".\\%s",newFileName));
+                    try (RandomAccessFile raf = new RandomAccessFile(fileCopy, "rw")) {
+                        int i = 0;
+                        while (raf.length() != length) {
+                            if (i == 0) {
+                                raf.writeBytes(in.readLine());
+                            } else {
+                                raf.writeBytes(LN);
+                                raf.writeBytes(in.readLine());
+                            }
+                            i++;
+                        }
+                    }
+                    while (!(str = in.readLine()).isEmpty()) {
+                        System.out.println(str);
+                    }
+                }
+                if ("exit".equals(str)) {
+                    break;
                 }
                 out.println(console.nextLine());
             } while (true);
