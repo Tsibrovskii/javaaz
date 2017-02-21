@@ -12,8 +12,6 @@ public class Client {
 
     private final Socket socket;
 
-    private final String LN = System.getProperty("line.separator");
-
     /**
      * Конструктора класса Клиента.
      *

@@ -51,7 +51,6 @@ public class CopyFileInSocket {
     public long lengthOfFile() throws IOException {
         String fileToCopy = String.format("%s\\%s", this.catalogue, this.fileName);
         File fileCopy = new File(fileToCopy);
-        int i;
         try (RandomAccessFile raf = new RandomAccessFile(fileCopy, "r")) {
             return raf.length();
         }

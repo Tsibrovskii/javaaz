@@ -62,6 +62,14 @@ public class Catalogue {
     }
 
     /**
+     * Метод, возвращающий текущий каталог.
+     * @return текущий каталог.
+     */
+    public String getCurrentCatalogue() {
+        return this.catalogue;
+    }
+
+    /**
      * Метод, возвращающий список каталога.
      * @return список каталога.
      */
@@ -78,13 +86,5 @@ public class Catalogue {
             }
         }
         return str;
-    }
-
-    /**
-     * Метод, возвращающий текущий каталог.
-     * @return текущий каталог.
-     */
-    public String getCurrentCatalogue() {
-        return this.catalogue;
     }
 }
