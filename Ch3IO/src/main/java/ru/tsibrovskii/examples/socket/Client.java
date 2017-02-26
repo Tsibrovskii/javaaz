@@ -49,6 +49,7 @@ public class Client {
                     }
                 }
                 if ("exit".equals(str)) {
+                    out.println("exit");
                     break;
                 }
                 out.println(console.nextLine());
@@ -60,7 +61,6 @@ public class Client {
 
     /**
      * Основной метод класса.
-     *
      * @param args массив аргументов.
      */
     public static void main(String[] args) throws IOException {
