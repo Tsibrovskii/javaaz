@@ -22,7 +22,7 @@ public class FindFileTest {
     public void whenGiveDirectoryAndFileNameShouldCompareFiles() throws IOException {
 
         FindFile findFile = new FindFile();
-        findFile.searchFile("c:\\projects\\javaaz\\", "random.txt", "-f");
+        findFile.searchFile("c:\\projects\\javaaz\\", "random.txt", "-f", "log.txt");
         String result = Joiner.on(LN).join("c:\\projects\\javaaz\\Ch3IO\\random.txt", "c:\\projects\\javaaz\\random.txt");
         String resFromLog = null;
         String readFromRaf;
@@ -47,7 +47,7 @@ public class FindFileTest {
     public void whenGiveDirectoryAndFileNameShouldCompareFilesWithMask() throws IOException {
 
         FindFile findFile = new FindFile();
-        findFile.searchFile("c:\\projects\\javaaz\\Tracker\\src\\main\\java\\ru\\tsibrovskii\\models", ".java", "-m");
+        findFile.searchFile("c:\\projects\\javaaz\\Tracker\\src\\main\\java\\ru\\tsibrovskii\\models", ".java", "-m", "log.txt");
         String result = Joiner.on(LN).join(
                 "c:\\projects\\javaaz\\Tracker\\src\\main\\java\\ru\\tsibrovskii\\models\\Comment.java",
                 "c:\\projects\\javaaz\\Tracker\\src\\main\\java\\ru\\tsibrovskii\\models\\Item.java");

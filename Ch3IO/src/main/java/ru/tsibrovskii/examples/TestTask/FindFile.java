@@ -1,5 +1,7 @@
 package ru.tsibrovskii.examples.TestTask;
 
+import com.google.common.base.Joiner;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -18,12 +20,12 @@ public class FindFile {
      * @param mask маска поиска.
      * @throws IOException исключение.
      */
-    public void searchFile(String directory, String fileName, String mask) throws IOException {
+    public void searchFile(String directory, String fileName, String mask, String log) throws IOException {
         if ("-f".equals(mask)) {
-            searchFileFull(directory, fileName);
+            searchFileFull(directory, fileName, log);
         }
         if ("-m".equals(mask)) {
-            searchFileMask(directory, fileName);
+            searchFileMask(directory, fileName, log);
         }
     }
 
@@ -33,9 +35,9 @@ public class FindFile {
      * @param fileName имя файла.
      * @throws IOException исключение.
      */
-    public void searchFileFull(String directory, String fileName) throws IOException {
+    public void searchFileFull(String directory, String fileName, String log) throws IOException {
 
-        File fileSearch = new File(".\\log.txt");
+        File fileSearch = new File(String.format("%s%s",".\\", log));
         fileSearch.delete();
         try (RandomAccessFile raf = new RandomAccessFile(fileSearch, "rw")) {
             File file = new File(directory);
@@ -51,7 +53,7 @@ public class FindFile {
                         }
                     }
                 } else {
-                    searchFileFull(sub.toString(), fileName);
+                    searchFileFull(sub.toString(), fileName, log);
                 }
             }
         }
@@ -63,9 +65,9 @@ public class FindFile {
      * @param fileName имя файла.
      * @throws IOException исключение.
      */
-    public void searchFileMask(String directory, String fileName) throws IOException {
+    public void searchFileMask(String directory, String fileName, String log) throws IOException {
 
-        File fileSearch = new File(".\\log.txt");
+        File fileSearch = new File(String.format("%s%s",".\\", log));
         fileSearch.delete();
         try (RandomAccessFile raf = new RandomAccessFile(fileSearch, "rw")) {
             File file = new File(directory);
@@ -80,10 +82,26 @@ public class FindFile {
                         }
                     }
                 } else {
-                    searchFileMask(sub.toString(), fileName);
+                    searchFileMask(sub.toString(), fileName, log);
                 }
             }
         }
+    }
+
+    /**
+     * Метод, возвращающий подсказку.
+     * @return подсказка.
+     */
+    public String getPrompt() {
+        return Joiner.on(LN).join(
+                "Запстите приложение следующим образом:",
+                "java -jar Ch3IO-1.0.jar -d <название папки> -n <имя файла> -m -o <имя файла>",
+                "или",
+                "java -jar Ch3IO-1.0.jar -d <название папки> -n <имя файла> -f -o <имя файла>,",
+                "где \"-d\" - директория, в которой начинается поиск,",
+                "\"-n\" - полное или частичное имя файла, \"-m\" - искать по частичному совпадению,",
+                "\"-f\" - искать по полному совпадению, \"-o\" - имя файла результатов поиска."
+        );
     }
 
     /**
@@ -92,7 +110,12 @@ public class FindFile {
      * @throws IOException исключение.
      */
     public static void main(String[] args) throws IOException {
+        Validator validator = new Validator(args);
         FindFile findFile = new FindFile();
-        findFile.searchFile("c:\\projects\\javaaz\\", "random.txt", args[0]);
+        if (validator.checkArgs()) {
+            findFile.searchFile(args[1], args[3], args[4], args[6]);
+        } else {
+            System.out.println(findFile.getPrompt());
+        }
     }
 }
