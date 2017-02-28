@@ -1,9 +1,2 @@
-hello
-answer1
-world
-answer2
-stop
-stop
-continue
-answer3
-finish
+c:\projects\javaaz\Ch3IO\random.txt
+c:\projects\javaaz\random.txt

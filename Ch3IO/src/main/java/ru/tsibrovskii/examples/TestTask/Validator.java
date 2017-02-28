@@ -16,28 +16,55 @@ public class Validator {
     }
 
     /**
+     * Метод, возвращающий директорию поиска файла.
+     * @return директория поиска.
+     */
+    public String getDirectory() {
+        return this.args[1];
+    }
+
+    /**
+     * Метод, возвращающий имя искомого файла.
+     * @return имя файла.
+     */
+    public String getFileName() {
+        return this.args[3];
+    }
+
+    /**
+     * Метод, возвращающий маску поиска.
+     * @return маска поиска.
+     */
+    public String getMask() {
+        return this.args[4];
+    }
+
+    /**
+     * Метод, возвращающий имя файла с результатами.
+     * @return имя файла результатов.
+     */
+    public String getLogFile() {
+        return this.args[6];
+    }
+
+    /**
      * Метод проверки правильности ввода пользователя.
      * @return результат проверки.
      */
     public boolean checkArgs() {
         if (args.length != 7) {
-            System.out.println("not 7 args");
             return false;
         }
         if (!"-d".equals(args[0])) {
-            System.out.println("error in path");
             return false;
         }
         if (!"-n".equals(args[2])) {
-            System.out.println("error in name of file");
             return false;
         }
         if (!"-m".equals(args[4]) && !"-f".equals(args[4])) {
-            System.out.println("error in mask");
             return false;
         }
         if (!"-o".equals(args[5])) {
-            System.out.println("error in log-file");
             return false;
         }
         if (args[1] == null || args[3] == null || args[6] == null) {

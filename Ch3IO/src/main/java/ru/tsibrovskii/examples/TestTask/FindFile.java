@@ -113,7 +113,7 @@ public class FindFile {
         Validator validator = new Validator(args);
         FindFile findFile = new FindFile();
         if (validator.checkArgs()) {
-            findFile.searchFile(args[1], args[3], args[4], args[6]);
+            findFile.searchFile(validator.getDirectory(), validator.getFileName(), validator.getMask(), validator.getLogFile());
         } else {
             System.out.println(findFile.getPrompt());
         }
