@@ -18,8 +18,8 @@ public class SettingsTest {
         try (FileInputStream io = new FileInputStream(file)){
             settings.load(io);
         }
-        String value = settings.getValue("home.path");
-        Assert.assertThat(value, is("c:\\temp\\"));
+        String value = settings.getValue("home.path.local");
+        Assert.assertThat(value, is("c:\\projects\\javaaz"));
     }
 
     @Test
@@ -29,8 +29,8 @@ public class SettingsTest {
         try (FileInputStream io = new FileInputStream(file)){
             settings.load(io);
         }
-        String value = settings.getValue("home.path");
-        Assert.assertThat(value, is("c:\\temp\\"));
+        String value = settings.getValue("home.path.local");
+        Assert.assertThat(value, is("c:\\projects\\javaaz"));
     }
 
     @Test
@@ -40,8 +40,8 @@ public class SettingsTest {
         try (InputStream io = loader.getResourceAsStream("app.properties")){
             settings.load(io);
         }
-        String value = settings.getValue("home.path");
-        Assert.assertThat(value, is("c:\\temp\\"));
+        String value = settings.getValue("home.path.local");
+        Assert.assertThat(value, is("c:\\projects\\javaaz"));
     }
 
     @Test

@@ -27,7 +27,7 @@ public class FindFileTest {
         String resFromLog = null;
         String readFromRaf;
 
-        try (RandomAccessFile raf = new RandomAccessFile(".\\..\\log.txt", "rw")) {
+        try (RandomAccessFile raf = new RandomAccessFile(".\\log.txt", "rw")) {
             while ((readFromRaf = raf.readLine()) != null) {
                 if (resFromLog == null) {
                     resFromLog = readFromRaf;
@@ -54,7 +54,7 @@ public class FindFileTest {
         String resFromLog = null;
         String readFromRaf;
 
-        try (RandomAccessFile raf = new RandomAccessFile(".\\..\\log.txt", "rw")) {
+        try (RandomAccessFile raf = new RandomAccessFile(".\\log.txt", "rw")) {
             while ((readFromRaf = raf.readLine()) != null) {
                 if (resFromLog == null) {
                     resFromLog = readFromRaf;

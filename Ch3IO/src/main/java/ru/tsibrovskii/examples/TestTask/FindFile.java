@@ -35,7 +35,7 @@ public class FindFile {
      */
     public void searchFileFull(String directory, String fileName) throws IOException {
 
-        File fileSearch = new File(".\\..\\log.txt");
+        File fileSearch = new File(".\\log.txt");
         fileSearch.delete();
         try (RandomAccessFile raf = new RandomAccessFile(fileSearch, "rw")) {
             File file = new File(directory);
@@ -65,7 +65,7 @@ public class FindFile {
      */
     public void searchFileMask(String directory, String fileName) throws IOException {
 
-        File fileSearch = new File(".\\..\\log.txt");
+        File fileSearch = new File(".\\log.txt");
         fileSearch.delete();
         try (RandomAccessFile raf = new RandomAccessFile(fileSearch, "rw")) {
             File file = new File(directory);
@@ -84,6 +84,15 @@ public class FindFile {
                 }
             }
         }
+    }
 
+    /**
+     * Основной метод класса.
+     * @param args аргументы.
+     * @throws IOException исключение.
+     */
+    public static void main(String[] args) throws IOException {
+        FindFile findFile = new FindFile();
+        findFile.searchFile("c:\\projects\\javaaz\\", "random.txt", args[0]);
     }
 }
