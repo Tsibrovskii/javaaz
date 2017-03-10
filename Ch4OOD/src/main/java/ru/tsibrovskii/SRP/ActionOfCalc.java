@@ -19,10 +19,23 @@ public interface ActionOfCalc {
     int key();
 
     /**
-     * Метод, проводящий операции над числами.
-     * @param firstNumber первое число.
-     * @param secondNumber второе число.
-     * @return результат.
+     * Метод, возвращающий ключ последнего выполненного действия.
+     * @return ключ.
      */
-    double operation(final double firstNumber, final double secondNumber);
+    int setKey();
+
+    /**
+     * Метод, проводящий операции над числами.
+     * @param input ввод пользователя.
+     * @return результат операции.
+     */
+    double operation(Input input);
+
+    /**
+     * Метод, использующий результат последней операции.
+     * @param input ввод пользователя.
+     * @param result результат предыдущей операции.
+     * @return результат операции.
+     */
+    double operation(Input input, double result);
 }
