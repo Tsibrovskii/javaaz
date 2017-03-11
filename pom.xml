@@ -40,5 +40,6 @@
         <module>Tracker</module>
         <module>Ch3IO</module>
         <module>Ch4OOD</module>
+        <module>Ch5Collections</module>
 	</modules>
 </project>
