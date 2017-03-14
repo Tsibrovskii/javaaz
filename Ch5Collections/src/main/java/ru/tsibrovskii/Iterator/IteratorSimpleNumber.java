@@ -8,8 +8,7 @@ import java.util.Iterator;
 public class IteratorSimpleNumber implements Iterator {
 
     private final int[] values;
-    private int[] simpleArray;
-    private int counter = 0;
+    private int position = 0;
 
     /**
      * Конструктор класса.
@@ -40,38 +39,17 @@ public class IteratorSimpleNumber implements Iterator {
     }
 
     /**
-     * Метод определения длины нового массива простых чисел.
-     * @return длина нового массива.
-     */
-    private int setLengthOfSimpleArray() {
-        int lenOfArray = 0;
-        for (int value : this.values) {
-            if (isSimpleNumber(value)) {
-                lenOfArray++;
-            }
-        }
-        return lenOfArray;
-    }
-
-    /**
-     * Метод заполнения массива простыми числами.
-     */
-    public void setSimpleArray() {
-        this.simpleArray = new int[setLengthOfSimpleArray()];
-        for (int value : this.values) {
-            if (isSimpleNumber(value)) {
-                this.simpleArray[counter++] = value;
-            }
-        }
-        this.counter = 0;
-    }
-
-    /**
      * Метод, проверяющий, имеются ли еще элементы в массиве.
      * @return да или нет.
      */
     public boolean hasNext() {
-        return this.simpleArray.length > this.counter;
+        for (int i = this.position; i < this.values.length; i++) {
+            if (isSimpleNumber(this.values[i])) {
+                this.position = i;
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -79,10 +57,12 @@ public class IteratorSimpleNumber implements Iterator {
      * @return элемент массива.
      */
     public Object next() {
-        if (this.simpleArray.length != 0) {
-            return this.simpleArray[counter++];
-        } else {
-            return null;
+        for (int i = this.position; i < this.values.length; i++) {
+            if (isSimpleNumber(this.values[i])) {
+                this.position = i + 1;
+                return this.values[i];
+            }
         }
+        return null;
     }
 }

@@ -32,10 +32,27 @@ public class IteratorSimpleNumberTest {
     public void whenGetNextShouldReturnFollowingSimpleElementOfArray() {
         IteratorSimpleNumber iteratorSimpleNumber = new IteratorSimpleNumber(new int[] {1, 5, 6, 9, 11, 13, 14});
 
-        iteratorSimpleNumber.setSimpleArray();
         iteratorSimpleNumber.next();
         int result = (Integer) iteratorSimpleNumber.next();
 
         assertThat(result, is(11));
+    }
+
+    @Test
+    public void whenCheckNextEvenElementOfArrayShouldReturnTrue() {
+        IteratorSimpleNumber iteratorSimpleNumber = new IteratorSimpleNumber(new int[] {1, 5, 6, 9, 11, 13, 14});
+
+        iteratorSimpleNumber.next();
+        assertTrue(iteratorSimpleNumber.hasNext());
+    }
+
+    @Test
+    public void whenCheckNextEvenElementOfArrayShouldReturnFalse() {
+        IteratorSimpleNumber iteratorSimpleNumber = new IteratorSimpleNumber(new int[] {1, 5, 6, 9, 11, 13, 14});
+
+        iteratorSimpleNumber.next();
+        iteratorSimpleNumber.next();
+        iteratorSimpleNumber.next();
+        assertFalse(iteratorSimpleNumber.hasNext());
     }
 }

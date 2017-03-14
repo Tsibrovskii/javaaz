@@ -33,6 +33,11 @@
             <version>1.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
     </dependencies>
 	
 	<modules>
@@ -41,5 +46,6 @@
         <module>Ch3IO</module>
         <module>Ch4OOD</module>
         <module>Ch5Collections</module>
+        <module>Ch6GarbageCollection</module>
 	</modules>
 </project>

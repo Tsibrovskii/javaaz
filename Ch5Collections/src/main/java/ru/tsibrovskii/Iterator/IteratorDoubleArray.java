@@ -8,8 +8,8 @@ import java.util.Iterator;
 public class IteratorDoubleArray implements Iterator {
 
     private final int[][] values;
-    private int[] arrayOfOneDimension;
-    private int counter = 0;
+    private int i = 0;
+    private int j = 0;
 
     /**
      * Конструктор класса.
@@ -20,38 +20,15 @@ public class IteratorDoubleArray implements Iterator {
     }
 
     /**
-     * Метод определения количества элементов массива.
-     * @return длина одномерного массива.
-     */
-    private int setLengthOfArray() {
-        int lenOfArray = 0;
-        for (int i = 0; i < this.values.length; i++) {
-            for (int j = 0; j < this.values[0].length; j++) {
-                lenOfArray++;
-            }
-        }
-        return lenOfArray;
-    }
-
-    /**
-     * Метод заполнения нового одномерного массива.
-     */
-    public void convertArray() {
-        this.arrayOfOneDimension = new int[setLengthOfArray()];
-        for (int i = 0; i < this.values.length; i++) {
-            for (int j = 0; j < this.values[0].length; j++) {
-                this.arrayOfOneDimension[counter++] = this.values[i][j];
-            }
-        }
-        this.counter = 0;
-    }
-
-    /**
      * Метод, проверяющий, имеются ли еще элементы в массиве.
      * @return да или нет.
      */
     public boolean hasNext() {
-        return this.arrayOfOneDimension.length > this.counter;
+        if (this.i == this.values.length && this.j == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -59,6 +36,17 @@ public class IteratorDoubleArray implements Iterator {
      * @return элемент массива.
      */
     public Object next() {
-        return this.arrayOfOneDimension[this.counter++];
+        try {
+            int nextElement = this.values[i][j];
+            if (this.j == this.values[i].length - 1) {
+                this.j = 0;
+                this.i++;
+            } else {
+                this.j++;
+            }
+            return nextElement;
+        } catch (ArrayIndexOutOfBoundsException out) {
+            return null;
+        }
     }
 }
