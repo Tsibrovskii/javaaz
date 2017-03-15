@@ -1,5 +1,7 @@
 package ru.tsibrovskii.SRP;
 
+import ru.tsibrovskii.OCP.RemadeMenuActions;
+
 /**
  * Класс запуска приложения "Калькулятор".
  */
@@ -19,8 +21,8 @@ public class Calculator {
     /**
      * Метод заполнения массива элементами меню.
      */
-    public void setRanges() {
-        this.ranges = new int[new MenuActions(this.input).getActionOfCalc().length];
+    public void setRanges(MenuActions menuActions) {
+        this.ranges = new int[menuActions.getActionOfCalc().length];
         for (int i = 0; i < this.ranges.length; i++) {
             this.ranges[i] = i + 1;
         }
@@ -43,10 +45,10 @@ public class Calculator {
      */
     public static void main(String[] args) {
         Input input = new ValidateInput();
-        MenuActions menuActions = new MenuActions(input);
+        MenuActions menuActions = new RemadeMenuActions(input, 7);
         menuActions.fillActions();
         Calculator calculator = new Calculator(input);
-        calculator.setRanges();
+        calculator.setRanges(menuActions);
         calculator.init(menuActions);
     }
 }

@@ -7,16 +7,18 @@ public class MenuActions {
 
     private double result;
     private int mainKey;
-    private ActionOfCalc[] actionOfCalc = new ActionOfCalc[6];
+    private ActionOfCalc[] actionOfCalc;
     private int position = 0;
     private final Input input;
 
     /**
      * Конструктор класса.
      * @param input ввод пользователя.
+     * @param size размер массива.
      */
-    public MenuActions(Input input) {
+    public MenuActions(Input input, int size) {
         this.input = input;
+        this.actionOfCalc = new ActionOfCalc[size];
     }
 
     /**
@@ -29,6 +31,7 @@ public class MenuActions {
         this.actionOfCalc[position++] = this.new DivisionOfNumbers();
         this.actionOfCalc[position++] = this.new RepeatAction();
         this.actionOfCalc[position++] = this.new UseResult();
+        this.actionOfCalc[position++] = this.new SinusOfNumber();
     }
 
     /**
@@ -61,9 +64,17 @@ public class MenuActions {
     public void show() {
         for (ActionOfCalc actionOfCalc : this.actionOfCalc) {
             if (actionOfCalc != null) {
-                System.out.println(actionOfCalc.information());
+                this.showAction(actionOfCalc);
             }
         }
+    }
+
+    /**
+     * Метод, печатающий на экран информацию о выбранном действии.
+     * @param actionOfCalc выбранное действие из меню.
+     */
+    public void showAction(ActionOfCalc actionOfCalc) {
+        System.out.println(actionOfCalc.information());
     }
 
     /**
@@ -319,11 +330,6 @@ public class MenuActions {
         public double operation(Input input) {
             return actionOfCalc[mainKey - 1].operation(input);
         }
-
-        //Заглушка.
-        public double operation(Input input, double result) {
-            return -1;
-        }
     }
 
     /**
@@ -361,13 +367,61 @@ public class MenuActions {
          * @return результат деления.
          */
         public double operation(Input input) {
+            System.out.println("Выберите действие, для которого использовать полученный ранее результат.");
             show();
-            return actionOfCalc[input.ask("Select: ", new int[] {1, 2, 3, 4}) - 1].operation(input, result);
+            return actionOfCalc[input.ask("Select: ", new int[] {1, 2, 3, 4, 7}) - 1].operation(input, result);
+        }
+    }
+
+    /**
+     * Класс получения синуса числа.
+     */
+    public class SinusOfNumber implements ActionOfCalc {
+
+        /**
+         * Метод, возвращающий информацию о действии.
+         * @return информация.
+         */
+        public String information() {
+            return String.format("%s. %s", this.key(), "Синус.");
         }
 
-        //Заглушка.
-        public double operation(Input input, double result) {
-            return -1;
+        /**
+         * Метод, возвращающий ключ для сложения чисел.
+         * @return ключ.
+         */
+        public int key() {
+            return 7;
+        }
+
+        /**
+         * Метод, возвращающий ключ последнего выполненного действия.
+         * @return ключ.
+         */
+        public int setKey() {
+            return this.key();
+        }
+
+        /**
+         * Метод, вычисляющий синус числа..
+         * @param input ввод пользователя.
+         * @return синус.
+         */
+        public double operation(Input input) {
+            double firstNumber = input.ask("Введите число: ");
+            result = Math.sin(firstNumber);
+            return result;
+        }
+
+        /**
+         * Метод, вычислящий синус полученного ранее результата.
+         * @param input ввод пользователя.
+         * @param firstNumber результат предыдущей операции.
+         * @return синус.
+         */
+        public double operation(Input input, double firstNumber) {
+            result = Math.sin(firstNumber);
+            return result;
         }
     }
 }

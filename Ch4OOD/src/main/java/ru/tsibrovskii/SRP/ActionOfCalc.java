@@ -37,5 +37,7 @@ public interface ActionOfCalc {
      * @param result результат предыдущей операции.
      * @return результат операции.
      */
-    double operation(Input input, double result);
+    default double operation(Input input, double result) {
+        return -1;
+    }
 }

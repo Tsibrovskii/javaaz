@@ -34,6 +34,7 @@ public class ConsoleInput implements Input {
      * @return ввод пользователя, либо исключение.
      */
     public int ask(String question, int[] range) {
+        System.out.println(question);
         int key = Integer.valueOf(new Scanner(System.in).nextLine());
         boolean exist = false;
         for (int value : range) {
