@@ -36,7 +36,9 @@ public class IteratorDoubleArray implements Iterator {
      * @return элемент массива.
      */
     public Object next() {
-        try {
+        if (this.i == this.values.length && this.j == 0) {
+            return null;
+        } else {
             int nextElement = this.values[i][j];
             if (this.j == this.values[i].length - 1) {
                 this.j = 0;
@@ -45,8 +47,6 @@ public class IteratorDoubleArray implements Iterator {
                 this.j++;
             }
             return nextElement;
-        } catch (ArrayIndexOutOfBoundsException out) {
-            return null;
         }
     }
 }

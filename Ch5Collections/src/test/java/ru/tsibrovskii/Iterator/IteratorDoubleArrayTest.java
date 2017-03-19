@@ -29,9 +29,9 @@ public class IteratorDoubleArrayTest {
 
         iteratorDoubleArray.next();
         iteratorDoubleArray.next();
-        int resutl = (Integer) iteratorDoubleArray.next();
+        int result = (Integer) iteratorDoubleArray.next();
 
-        assertThat(resutl, is(3));
+        assertThat(result, is(3));
     }
 
     @Test
