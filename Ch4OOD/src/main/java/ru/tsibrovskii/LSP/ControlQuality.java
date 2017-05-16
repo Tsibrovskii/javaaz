@@ -8,19 +8,15 @@ import java.util.LinkedList;
 public class ControlQuality {
 
     private LinkedList<Food> foods;
-    public Warehouse warehouse;
-    public Shop shop;
-    public Trash trash;
+    private LinkedList<Store> stores;
 
     /**
      * Конструктор.
      * @param foods лист продуктов.
      */
-    public ControlQuality(LinkedList<Food> foods) {
+    public ControlQuality(LinkedList<Food> foods, LinkedList<Store> stores) {
         this.foods = foods;
-        this.warehouse = new Warehouse();
-        this.shop = new Shop();
-        this.trash = new Trash();
+        this.stores = stores;
     }
 
     /**
@@ -29,19 +25,13 @@ public class ControlQuality {
     public void moveFood() {
         for (Food food : this.foods) {
             double expirationDate = (food.expiryDate.getTime() - System.currentTimeMillis()) / ((double) (food.expiryDate.getTime() - food.createDate.getTime()));
-            if (expirationDate > 0.75) {
-                warehouse.foods.add(food);
-            }
-            if (expirationDate < 0.75 && expirationDate > 0.25) {
-                shop.foods.add(food);
-            }
-            if (expirationDate < 0.25 && expirationDate > 0) {
-                Food foodWithDiscount = food;
-                foodWithDiscount.discount = 0.3;
-                shop.foods.add(foodWithDiscount);
-            }
-            if (expirationDate <= 0) {
-                trash.foods.add(food);
+            int i = 0;
+            for(Store store : this.stores) {
+                if (store.isHere(expirationDate)) {
+                    this.stores.get(i).putFood(food);
+                    break;
+                }
+                i++;
             }
         }
     }

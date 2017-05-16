@@ -1,11 +1,19 @@
 package ru.tsibrovskii.LSP;
 
-import java.util.LinkedList;
-
 /**
  * Класс отходов.
  */
-public class Trash {
+public class Trash extends Store {
 
-    public LinkedList<Food> foods = new LinkedList<Food>();
+    public boolean isHere(double expirationDate) {
+        if (expirationDate <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void putFood(Food food) {
+        foods.add(food);
+    }
 }

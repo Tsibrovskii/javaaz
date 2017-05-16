@@ -1,11 +1,23 @@
 package ru.tsibrovskii.LSP;
 
-import java.util.LinkedList;
-
 /**
  * Класс магазина.
  */
-public class Shop {
+public class Shop extends Store {
 
-    public LinkedList<Food> foods = new LinkedList<Food>();
+    public boolean isHere(double expirationDate) {
+        if (expirationDate < 0.75 && expirationDate > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void putFood(Food food) {
+        double expirationDate = (food.expiryDate.getTime() - System.currentTimeMillis()) / ((double) (food.expiryDate.getTime() - food.createDate.getTime()));
+        if (expirationDate < 0.25 && expirationDate > 0) {
+            food.discount = 0.3;
+        }
+        foods.add(food);
+    }
 }

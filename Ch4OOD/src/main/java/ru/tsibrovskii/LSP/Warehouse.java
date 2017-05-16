@@ -1,11 +1,19 @@
 package ru.tsibrovskii.LSP;
 
-import java.util.LinkedList;
-
 /**
  * Класс склада.
  */
-public class Warehouse {
+public class Warehouse extends Store {
 
-    public LinkedList<Food> foods = new LinkedList<Food>();
+    public boolean isHere(double expirationDate) {
+        if (expirationDate > 0.75) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void putFood(Food food) {
+        foods.add(food);
+    }
 }
