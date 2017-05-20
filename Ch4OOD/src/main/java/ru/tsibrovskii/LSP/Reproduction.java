@@ -1,16 +1,13 @@
 package ru.tsibrovskii.LSP;
 
 /**
- * Класс магазина.
+ * Класс переработки.
  */
-public class Shop extends Store {
+public class Reproduction extends Trash {
 
     public boolean putFood(Food food) {
         double expirationDate = (food.expiryDate.getTime() - System.currentTimeMillis()) / ((double) (food.expiryDate.getTime() - food.createDate.getTime()));
-        if (expirationDate < 0.75 && expirationDate > 0) {
-            if (expirationDate < 0.25) {
-                food.discount = 0.3;
-            }
+        if (expirationDate <= 0 && food.canReproduce) {
             foods.add(food);
             return true;
         } else {

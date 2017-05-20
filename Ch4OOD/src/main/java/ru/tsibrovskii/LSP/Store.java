@@ -10,15 +10,9 @@ public abstract class Store {
     LinkedList<Food> foods = new LinkedList<Food>();
 
     /**
-     * Метод проверки актуальности товара для этого хранилища.
-     * @param expirationDate срок годности.
-     * @return результат.
-     */
-    abstract boolean isHere(double expirationDate);
-
-    /**
      * Метод помещения товара в хранилище.
      * @param food товар.
+     * @return успешность операции.
      */
-    abstract public void putFood(Food food);
+    abstract public boolean putFood(Food food);
 }

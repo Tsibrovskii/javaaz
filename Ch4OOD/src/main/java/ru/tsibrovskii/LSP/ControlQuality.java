@@ -24,14 +24,10 @@ public class ControlQuality {
      */
     public void moveFood() {
         for (Food food : this.foods) {
-            double expirationDate = (food.expiryDate.getTime() - System.currentTimeMillis()) / ((double) (food.expiryDate.getTime() - food.createDate.getTime()));
-            int i = 0;
             for(Store store : this.stores) {
-                if (store.isHere(expirationDate)) {
-                    this.stores.get(i).putFood(food);
+                if (store.putFood(food)) {
                     break;
                 }
-                i++;
             }
         }
     }

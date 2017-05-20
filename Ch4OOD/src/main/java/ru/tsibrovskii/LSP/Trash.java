@@ -5,15 +5,14 @@ package ru.tsibrovskii.LSP;
  */
 public class Trash extends Store {
 
-    public boolean isHere(double expirationDate) {
-        if (expirationDate <= 0) {
+    public boolean putFood(Food food) {
+        double expirationDate = (food.expiryDate.getTime() - System.currentTimeMillis()) / ((double) (food.expiryDate.getTime() - food.createDate.getTime()));
+        if (expirationDate <= 0 && !food.canReproduce) {
+            foods.add(food);
             return true;
         } else {
             return false;
         }
-    }
 
-    public void putFood(Food food) {
-        foods.add(food);
     }
 }

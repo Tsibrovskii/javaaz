@@ -5,15 +5,13 @@ package ru.tsibrovskii.LSP;
  */
 public class Warehouse extends Store {
 
-    public boolean isHere(double expirationDate) {
-        if (expirationDate > 0.75) {
+    public boolean putFood(Food food) {
+        double expirationDate = (food.expiryDate.getTime() - System.currentTimeMillis()) / ((double) (food.expiryDate.getTime() - food.createDate.getTime()));
+        if (expirationDate > 0.75 && foods.size() < 2 && !food.isFreeze) {
+            foods.add(food);
             return true;
         } else {
             return false;
         }
-    }
-
-    public void putFood(Food food) {
-        foods.add(food);
     }
 }

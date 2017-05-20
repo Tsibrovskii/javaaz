@@ -5,12 +5,14 @@ import java.util.Date;
 /**
  * Класс продуктов.
  */
-public class Food {
+public abstract class Food {
 
     public String name;
     public Date expiryDate;
     public Date createDate;
     public double price;
     public double discount;
+    public boolean canReproduce;
+    public boolean isFreeze;
 
 }
