@@ -19,7 +19,7 @@ public class CollectionsSpeed {
 
         CollectionsSpeed collectionsSpeed = new CollectionsSpeed();
 
-        System.out.println(String.format("Время вставки в LinkedList: %s с", collectionsSpeed.add(linkedList, 50000)));
+        System.out.println(String.format("Время вставки в LinkedList: %s нс", collectionsSpeed.add(linkedList, 50000)));
         System.out.println(String.format("Время удаления из LinkedList: %s нс", collectionsSpeed.delete(linkedList, 10000)));
 
         System.out.println(String.format("Время вставки в ArrayList: %s нс", collectionsSpeed.add(arrayList, 50000)));
