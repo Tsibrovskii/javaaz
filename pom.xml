@@ -45,6 +45,7 @@
         <module>Tracker</module>
         <module>Ch3IO</module>
         <module>Ch4OOD</module>
+        <module>Ch5.0.CollectionsLite</module>
         <module>Ch5Collections</module>
         <module>Ch6GarbageCollection</module>
 	</modules>
