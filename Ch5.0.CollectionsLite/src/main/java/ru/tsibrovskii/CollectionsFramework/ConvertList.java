@@ -52,4 +52,21 @@ public class ConvertList {
         }
         return array;
     }
+
+    /**
+     * Метод преобразования листа массивов, содержащих Integer в лист Integer.
+     * @param list лист массивов.
+     * @return лист.
+     */
+    public List<Integer> convert (List<int[]> list) {
+
+        List<Integer> convertedList = new ArrayList<>();
+
+        for(int[] array : list) {
+            for(int i : array) {
+                convertedList.add(i);
+            }
+        }
+        return convertedList;
+    }
 }

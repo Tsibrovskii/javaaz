@@ -44,4 +44,19 @@ public class ConvertListTest {
 
         assertThat(array, is(resultArray));
     }
+
+    @Test
+    public void whenGiveListOfArraysShouldReturnConvertedList() {
+
+        ConvertList convertList = new ConvertList();
+
+        List<int[]> listArray = new ArrayList<>();
+        listArray.add(new int[]{1, 2});
+        listArray.add(new int[]{1, 2, 3, 4, 5, 6});
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 1, 2, 3, 4, 5, 6));
+
+        List<Integer> resultList = convertList.convert(listArray);
+
+        assertThat(resultList, is(list));
+    }
 }
