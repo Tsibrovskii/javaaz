@@ -1,4 +1,4 @@
-package ru.tsibrovskii;
+package ru.tsibrovskii.CollectionFramework;
 
 import org.junit.Test;
 import ru.tsibrovskii.CollectionsFramework.ConvertList;

@@ -1,4 +1,4 @@
-package ru.tsibrovskii.TestTask;
+package ru.tsibrovskii.CollectionFramework.TestTask;
 
 import org.junit.Test;
 import ru.tsibrovskii.CollectionsFramework.TestTask.Account;

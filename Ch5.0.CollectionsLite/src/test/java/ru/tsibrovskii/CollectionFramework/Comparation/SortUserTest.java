@@ -1,4 +1,4 @@
-package ru.tsibrovskii.Comparation;
+package ru.tsibrovskii.CollectionFramework.Comparation;
 
 import org.junit.Test;
 import ru.tsibrovskii.CollectionsFramework.Comparation.SortUser;
