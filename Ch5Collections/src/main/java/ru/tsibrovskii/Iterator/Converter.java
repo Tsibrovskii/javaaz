@@ -23,51 +23,22 @@ public class Converter {
 
             @Override
             public boolean hasNext() {
-                if(innerIt == null) {
-                    if(it.hasNext()) {
-                        innerIt = it.next();
-                    } else {
-                        return false;
-                    }
-                }
-
-                if(innerIt.hasNext()) {
-                    return true;
-                } else if(it.hasNext()) {
-                    innerIt = it.next();
-                    if(innerIt.hasNext()) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
+                return it.hasNext() || (innerIt != null && innerIt.hasNext());
             }
 
             @Override
             public Integer next() {
-                if(innerIt == null) {
-                    if(it.hasNext()) {
-                        innerIt = it.next();
-                    } else {
-                        return null;
-                    }
-                }
 
-                if(innerIt.hasNext()) {
-                    return innerIt.next();
-                } else if(it.hasNext()) {
-                    innerIt = it.next();
-                    if(innerIt.hasNext()) {
-                        return innerIt.next();
-                    } else {
-                        return null;
+                if (hasNext()) {
+                    if(innerIt == null || !innerIt.hasNext()) {
+                        innerIt = it.next();
                     }
+                    return innerIt.next();
                 } else {
                     return null;
                 }
             }
+
         };
 
     }
