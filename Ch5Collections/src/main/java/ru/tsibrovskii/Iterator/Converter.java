@@ -39,6 +39,10 @@ public class Converter {
                 }
             }
 
+            @Override
+            public void remove() {
+
+            }
         };
 
     }
