@@ -1,6 +1,7 @@
 package ru.tsibrovskii.List;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Динамический контейнер связанного списка.
@@ -55,15 +56,13 @@ public class DynamicLinkedList<E> implements SimpleContainer<E> {
             public E next() {
                 if(this.element == null) {
                     this.element = first;
-                } else {
+                } else if(this.element.next != null) {
                     this.element = this.element.next;
+                } else {
+                    throw new NoSuchElementException();
                 }
+
                 return this.element.element;
-            }
-
-            @Override
-            public void remove() {
-
             }
         };
     }
