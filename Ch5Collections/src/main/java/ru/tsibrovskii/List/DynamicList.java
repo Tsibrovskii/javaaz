@@ -1,6 +1,8 @@
 package ru.tsibrovskii.List;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Динамический контейнер
@@ -16,11 +18,7 @@ public class DynamicList<E> implements SimpleContainer<E> {
      */
     public void add(E e) {
         if(index == this.dynamicArray.length) {
-            Object[] arrayForCopy = new Object[this.dynamicArray.length * 2];
-            for(int i = 0; i < this.dynamicArray.length; i++) {
-                arrayForCopy[i] = this.dynamicArray[i];
-            }
-            this.dynamicArray = arrayForCopy;
+            this.dynamicArray = Arrays.copyOf(this.dynamicArray, this.dynamicArray.length * 2);
         }
         this.dynamicArray[index++] = e;
     }
@@ -44,16 +42,15 @@ public class DynamicList<E> implements SimpleContainer<E> {
             int position = 0;
 
             public boolean hasNext() {
-                return position < dynamicArray.length;
+                return position < index;
             }
 
             public E next() {
-                return (E) dynamicArray[position++];
-            }
-
-            @Override
-            public void remove() {
-
+                if(position < index) {
+                    return (E) dynamicArray[position++];
+                } else {
+                    throw new NoSuchElementException();
+                }
             }
         };
     }
