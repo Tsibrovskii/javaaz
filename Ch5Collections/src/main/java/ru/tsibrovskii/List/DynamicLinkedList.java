@@ -11,6 +11,7 @@ public class DynamicLinkedList<E> implements SimpleContainer<E> {
     Node<E> current;
     Node<E> previous;
     Node<E> first;
+    int length = 0;
 
     /**
      * Метод добавления нового элемента.
@@ -25,6 +26,7 @@ public class DynamicLinkedList<E> implements SimpleContainer<E> {
             this.previous.next = this.current;
             this.previous = this.current;
         }
+        length++;
     }
 
     /**
