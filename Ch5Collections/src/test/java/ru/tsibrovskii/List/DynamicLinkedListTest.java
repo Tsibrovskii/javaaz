@@ -24,9 +24,9 @@ public class DynamicLinkedListTest {
         dynamicLinkedList.add("first");
         dynamicLinkedList.add("second");
 
-        String result = dynamicLinkedList.first.next.element;
+        String result = dynamicLinkedList.getFirst().getNext().getElement();
 
-        String previousResult = dynamicLinkedList.first.next.previous.element;
+        String previousResult = dynamicLinkedList.getFirst().getNext().getPrevious().getElement();
 
         assertThat(result, is("second"));
         assertThat(previousResult, is("first"));

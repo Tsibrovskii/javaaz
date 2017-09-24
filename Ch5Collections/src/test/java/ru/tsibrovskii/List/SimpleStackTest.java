@@ -40,7 +40,7 @@ public class SimpleStackTest {
         String result = simpleStack.poll();
 
         assertThat(result, is("second"));
-        assertThat(simpleStack.length, is(1));
+        assertThat(simpleStack.getLength(), is(1));
 
     }
 }

@@ -24,7 +24,7 @@ public class SimpleQueueTest {
         String result = simpleQueue.poll();
 
         assertThat(result, is("first"));
-        assertThat(simpleQueue.length, is(1));
+        assertThat(simpleQueue.getLength(), is(1));
 
     }
 }

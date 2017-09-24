@@ -8,10 +8,26 @@ import java.util.NoSuchElementException;
  */
 public class DynamicLinkedList<E> implements SimpleContainer<E> {
 
-    Node<E> current;
-    Node<E> previous;
-    Node<E> first;
-    int length = 0;
+    private Node<E> current;
+    private Node<E> previous;
+    private Node<E> first;
+    private int length = 0;
+
+    public Node<E> getFirst() {
+        return this.first;
+    }
+
+    public void setFirst(Node<E> e) {
+        this.first = e;
+    }
+
+    public int getLength() {
+        return this.length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
 
     /**
      * Метод добавления нового элемента.
@@ -35,6 +51,9 @@ public class DynamicLinkedList<E> implements SimpleContainer<E> {
      * @return искомый элемент.
      */
     public E get(int index) {
+        if (index >= this.length) {
+            throw new IndexOutOfBoundsException();
+        }
         Node<E> findElement = this.first;
         for(int i = 0; i < index; i++) {
             findElement = findElement.next;
@@ -49,10 +68,14 @@ public class DynamicLinkedList<E> implements SimpleContainer<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            Node<E> element;
+            private Node<E> element;
 
             public boolean hasNext() {
-                return element.next != null;
+                if(first == null) {
+                    return false;
+                } else {
+                    return element.next != null;
+                }
             }
 
             public E next() {
@@ -66,6 +89,11 @@ public class DynamicLinkedList<E> implements SimpleContainer<E> {
 
                 return this.element.element;
             }
+
+            @Override
+            public void remove() {
+
+            }
         };
     }
 
@@ -74,14 +102,34 @@ public class DynamicLinkedList<E> implements SimpleContainer<E> {
      * @param <E> тип элемента.
      */
     public class Node<E> {
-        E element;
-        Node<E> next;
-        Node<E> previous;
+        private E element;
+        private Node<E> next;
+        private Node<E> previous;
 
-        Node(Node<E> previous, E element, Node<E> next) {
+        public Node(Node<E> previous, E element, Node<E> next) {
             this.previous = previous;
             this.element = element;
             this.next = next;
+        }
+
+        public E getElement() {
+            return this.element;
+        }
+
+        public Node<E> getNext() {
+            return this.next;
+        }
+
+        public void setNext(Node<E> e) {
+            this.next = e;
+        }
+
+        public Node<E> getPrevious() {
+            return this.previous;
+        }
+
+        public void setPrevious(Node<E> e) {
+            this.previous = e;
         }
     }
 }

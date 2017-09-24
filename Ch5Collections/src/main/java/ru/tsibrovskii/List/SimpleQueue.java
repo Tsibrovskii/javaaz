@@ -11,9 +11,9 @@ public class SimpleQueue<T> extends DynamicLinkedList<T> {
      * @return узел.
      */
     public Node<T> getNode(int index) {
-        Node<T> findElement = this.first;
+        Node<T> findElement = this.getFirst();
         for(int i = 0; i < index; i++) {
-            findElement = findElement.next;
+            findElement = findElement.getNext();
         }
         return findElement;
     }
@@ -25,12 +25,12 @@ public class SimpleQueue<T> extends DynamicLinkedList<T> {
      */
     public <T> T poll() {
         T t = (T) this.get(0);
-        if(this.length > 1) {
-            this.getNode(1).previous = null;
-            this.first = this.getNode(1);
+        if(this.getLength() > 1) {
+            this.getNode(1).setPrevious(null);
+            this.setFirst(this.getNode(1));
         }
-        this.getNode(0).next = null;
-        this.length--;
+        this.getNode(0).setNext(null);
+        this.setLength(this.getLength()-1);
         return t;
     }
 
