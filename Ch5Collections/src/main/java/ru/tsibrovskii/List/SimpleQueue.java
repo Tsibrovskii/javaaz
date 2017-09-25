@@ -24,11 +24,16 @@ public class SimpleQueue<T> extends DynamicLinkedList<T> {
      * @return возвращаемый элемент.
      */
     public <T> T poll() {
-        T t = (T) this.get(0);
-        if(this.getLength() > 1) {
-            this.getNode(1).setPrevious(null);
-            this.setFirst(this.getNode(1));
+        if(this.getLength() == 0) {
+            return null;
         }
+        if(this.getLength() == 1) {
+            this.setLength(0);
+            return (T) this.get(0);
+        }
+        T t = (T) this.get(0);
+        this.getNode(1).setPrevious(null);
+        this.setFirst(this.getNode(1));
         this.getNode(0).setNext(null);
         this.setLength(this.getLength()-1);
         return t;

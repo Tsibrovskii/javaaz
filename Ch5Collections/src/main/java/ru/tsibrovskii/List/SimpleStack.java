@@ -1,5 +1,7 @@
 package ru.tsibrovskii.List;
 
+import java.util.NoSuchElementException;
+
 /**
  * Класс стэка.
  */
@@ -24,9 +26,12 @@ public class SimpleStack<T> extends DynamicLinkedList<T> {
      * @return возвращаемый элемент.
      */
     public <T> T poll() {
+        if(this.getLength() == 0) {
+            return null;
+        }
         T t = (T) this.get(this.getLength()-1);
         this.getNode(this.getLength()-1).setPrevious(null);
-        if(this.getLength() > 2) {
+        if(this.getLength() > 1) {
             this.getNode(this.getLength() - 2).setNext(null);
         }
         this.setLength(this.getLength()-1);
