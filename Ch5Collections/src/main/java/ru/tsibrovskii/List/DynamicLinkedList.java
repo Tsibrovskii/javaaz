@@ -89,11 +89,6 @@ public class DynamicLinkedList<E> implements SimpleContainer<E> {
 
                 return this.element.element;
             }
-
-            @Override
-            public void remove() {
-
-            }
         };
     }
 
