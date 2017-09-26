@@ -3,15 +3,17 @@ package ru.tsibrovskii.List;
 /**
  * Класс очереди.
  */
-public class SimpleQueue<T> extends DynamicLinkedList<T> {
+public class SimpleQueue<T> {
+
+    DynamicLinkedList<T> dynamicList = new DynamicLinkedList<>();
 
     /**
      * Метод возвращения узлового элемента.
      * @param index позиция.
      * @return узел.
      */
-    public Node<T> getNode(int index) {
-        Node<T> findElement = this.getFirst();
+    public DynamicLinkedList<T>.Node<T> getNode(int index) {
+        DynamicLinkedList<T>.Node<T> findElement = dynamicList.getFirst();
         for(int i = 0; i < index; i++) {
             findElement = findElement.getNext();
         }
@@ -24,18 +26,19 @@ public class SimpleQueue<T> extends DynamicLinkedList<T> {
      * @return возвращаемый элемент.
      */
     public <T> T poll() {
-        if(this.getLength() == 0) {
+        if(dynamicList.getLength() == 0) {
             return null;
         }
-        if(this.getLength() == 1) {
-            this.setLength(0);
-            return (T) this.get(0);
+        if(dynamicList.getLength() == 1) {
+            T t = (T) dynamicList.get(0);
+            dynamicList.setLength(0);
+            dynamicList.setFirst(null);
+            return t;
         }
-        T t = (T) this.get(0);
+        T t = (T) dynamicList.get(0);
         this.getNode(1).setPrevious(null);
-        this.setFirst(this.getNode(1));
-        this.getNode(0).setNext(null);
-        this.setLength(this.getLength()-1);
+        dynamicList.setFirst(this.getNode(1));
+        dynamicList.setLength(dynamicList.getLength()-1);
         return t;
     }
 
@@ -44,6 +47,6 @@ public class SimpleQueue<T> extends DynamicLinkedList<T> {
      * @param t
      */
     public void push(T t) {
-        this.add(t);
+        dynamicList.add(t);
     }
 }
