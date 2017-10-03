@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 public class LinkedSet<E> implements SimpleSet<E> {
 
     private Node<E> current;
-    private Node<E> previous;
+    private Node<E> tail;
     private Node<E> first;
     private int length = 0;
 
@@ -22,25 +22,30 @@ public class LinkedSet<E> implements SimpleSet<E> {
      * @param e новый элемент.
      */
     public void add(E e) {
-        if(this.first == null) {
-            this.first = new Node(e, null);
-            this.previous = this.first;
-            length++;
-            return;
-        }
-        Node<E> forAdd = this.first;
-        for(int i = 0; i < this.length; i++) {
-            if(e.equals(forAdd.getElement())) {
-                return;
+
+        if(this.first != null) {
+            Node<E> forAdd = this.first;
+            Boolean duplicate = false;
+            int i = 0;
+            while (!duplicate && i < this.length) {
+                if (e.equals(forAdd.getElement())) {
+                    duplicate = true;
+                }
+                forAdd = forAdd.next;
+                i++;
             }
-            forAdd = forAdd.next;
+
+            if (!duplicate) {
+                this.current = new Node(e, null);
+                this.tail.next = this.current;
+                this.tail = this.current;
+                length++;
+            }
+        } else {
+            this.first = new Node(e, null);
+            this.tail = this.first;
+            length++;
         }
-
-        this.current = new Node(e, null);
-        this.previous.next = this.current;
-        this.previous = this.current;
-
-        length++;
     }
 
     /**
@@ -53,22 +58,15 @@ public class LinkedSet<E> implements SimpleSet<E> {
             private Node<E> element;
 
             public boolean hasNext() {
-                if(first == null) {
-                    return false;
-                }
-                if(this.element == null) {
-                    return true;
-                }
 
-                return this.element.next != null;
+                return first == null ? false : (this.element == null ? true : this.element.next != null);
             }
 
             public E next() {
-                if(this.element == null && first != null) {
-                    this.element = first;
-                    return this.element.element;
-                } else if(this.element != null && this.element.next != null) {
+                if(this.element != null && this.element.next != null) {
                     this.element = this.element.next;
+                } else if(this.element == null && first != null) {
+                    this.element = first;
                 } else {
                     throw new NoSuchElementException();
                 }
