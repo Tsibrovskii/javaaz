@@ -35,8 +35,8 @@ public class SetSpeed {
         TreeSet<Integer> treeSetCollection = new TreeSet<>();
         LinkedHashSet<Integer> linkedHashSetCollection = new LinkedHashSet<>();
 
-        System.out.println("hashSetCollection time: " + setSpeed.add(hashSetCollection, 3000000));
-        System.out.println("treeSetCollection time: " + setSpeed.add(treeSetCollection, 3000000));
-        System.out.println("linkedHashSetCollection time: " + setSpeed.add(linkedHashSetCollection, 3000000));
+        System.out.println("hashSetCollection time: " + setSpeed.add(hashSetCollection, 5000000));
+        System.out.println("treeSetCollection time: " + setSpeed.add(treeSetCollection, 5000000));
+        System.out.println("linkedHashSetCollection time: " + setSpeed.add(linkedHashSetCollection, 5000000));
     }
 }
