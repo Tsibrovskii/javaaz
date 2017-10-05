@@ -13,16 +13,13 @@ public class SetSpeed {
      * @param amount параметр размера.
      * @return время вставки.
      */
-    public long add(Set<Long> collection, Long amount) {
+    public long add(Set<Integer> collection, Integer amount) {
 
         long startTime = System.currentTimeMillis();
-        for(Long i = 0L; i < amount; i++) {
+        for(int i = 0; i < amount; i++) {
             collection.add(i);
         }
 
-        for (Long i = 0L; i < amount; i++) {
-            collection.add(3*i);
-        }
         return (System.currentTimeMillis() - startTime);
     }
 
@@ -34,12 +31,12 @@ public class SetSpeed {
 
         SetSpeed setSpeed = new SetSpeed();
 
-        HashSet<Long> hashSetCollection = new HashSet<>();
-        TreeSet<Long> treeSetCollection = new TreeSet<>();
-        LinkedHashSet<Long> linkedHashSetCollection = new LinkedHashSet<>();
+        HashSet<Integer> hashSetCollection = new HashSet<>();
+        TreeSet<Integer> treeSetCollection = new TreeSet<>();
+        LinkedHashSet<Integer> linkedHashSetCollection = new LinkedHashSet<>();
 
-        System.out.println("hashSetCollection time: " + setSpeed.add(hashSetCollection, 2000000L));
-        System.out.println("treeSetCollection time: " + setSpeed.add(treeSetCollection, 2000000L));
-        System.out.println("linkedHashSetCollection time: " + setSpeed.add(linkedHashSetCollection, 2000000L));
+        System.out.println("hashSetCollection time: " + setSpeed.add(hashSetCollection, 3000000));
+        System.out.println("treeSetCollection time: " + setSpeed.add(treeSetCollection, 3000000));
+        System.out.println("linkedHashSetCollection time: " + setSpeed.add(linkedHashSetCollection, 3000000));
     }
 }
