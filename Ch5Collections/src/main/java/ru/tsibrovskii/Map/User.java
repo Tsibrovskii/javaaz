@@ -23,8 +23,28 @@ public class User {
         this.birthday = birthday;
     }
 
+//    @Override
+//    public int hashCode() {
+//        return (this.name.hashCode() + this.birthday.hashCode()) * 31 + this.children;
+//    }
+
     @Override
-    public int hashCode() {
-        return (this.name.hashCode() + this.birthday.hashCode()) * 31 + this.children;
+    public boolean equals(Object obj) {
+
+        boolean isEquals = false;
+
+        if(this == obj) {
+            isEquals = true;
+        }
+
+        if(!isEquals && obj != null && this.getClass() == obj.getClass()) {
+            User convertObj = (User) obj;
+            if(this.name.equals(convertObj.name) && this.children == convertObj.children
+                    && this.birthday.equals(convertObj.birthday)) {
+                isEquals = true;
+            }
+        }
+
+        return isEquals;
     }
 }
