@@ -1,17 +1,14 @@
 package ru.tsibrovskii.Map;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Класс справочника.
  */
 public class Handbook<T, V> {
 
-    private T[] keys = (T[]) new Object[10];
+    private T[] keys = (T[]) new Object[16];
     private V[] values = (V[]) new Object[this.keys.length];
 
-    private int position = 0;
+    private int count = 0;
 
     /**
      * Метод вставки элемента в спровочник.
@@ -21,12 +18,22 @@ public class Handbook<T, V> {
      */
     public boolean insert(T key, V value) {
 
-        boolean containsKey = this.contains(key);
-
-        if(!containsKey) {
-            this.insertInArray(key, value);
+        if(this.count == this.keys.length) {
+            this.increaseArray();
         }
-        return !containsKey;
+
+        boolean result = false;
+
+        int index = key.hashCode() & (this.keys.length - 1);
+
+        if(this.keys[index] == null) {
+            this.keys[index] = key;
+            this.values[index] = value;
+            this.count++;
+            result = true;
+        }
+
+        return result;
     }
 
     /**
@@ -34,15 +41,8 @@ public class Handbook<T, V> {
      * @param key ключ.
      * @return значение.
      */
-    public V get(T key) {
-
-        V element = null;
-        boolean containsKey = this.contains(key);
-
-        if(containsKey) {
-            element = this.getElement(key);
-        }
-        return element;
+    public V getElement(T key) {
+        return this.values[key.hashCode() & (this.keys.length - 1)];
     }
 
     /**
@@ -52,73 +52,31 @@ public class Handbook<T, V> {
      */
     public boolean delete(T key) {
 
-        boolean containsKey = this.contains(key);
-
-        if(containsKey) {
-
-        }
-        return containsKey;
-    }
-
-    /**
-     * Метод проверки на наличие ключа в массиве ключей.
-     * @param key ключ.
-     * @return результат.
-     */
-    private boolean contains(T key) {
         boolean result = false;
-        for (T k : this.keys) {
-            if(k.equals(key)) {
-                result = true;
-                break;
-            }
+
+        int index = key.hashCode() & (this.keys.length - 1);
+
+        if (index < this.keys.length) {
+            this.keys[index] = null;
+            this.values[index] = null;
+            this.count--;
+            result = true;
         }
+
         return result;
     }
 
     /**
-     * Метод добавления элементов в массивы.
-     * @param key ключ.
-     * @param value значение.
+     * Метод расширения массива.
      */
-    private void insertInArray(T key, V value) {
-        if(this.position == this.keys.length) {
-            this.keys = Arrays.copyOf(this.keys, this.keys.length * 2);
-            this.values = Arrays.copyOf(this.values, this.values.length * 2);
+    private void increaseArray() {
+        T[] bigKeys = (T[]) new Object[this.keys.length * 2];
+        V[] bigValues = (V[]) new OutOfMemoryError[this.keys.length * 2];
+        for(T t : this.keys) {
+            bigKeys[t.hashCode() & (bigKeys.length - 1)] = t;
+            bigValues[t.hashCode() & (bigKeys.length - 1)] = this.values[t.hashCode() & (this.keys.length - 1)];
         }
-        this.keys[this.position] = key;
-        this.values[this.position] = value;
-        this.position++;
-    }
-
-    /**
-     * Метод получения значения по ключу.
-     * @param key ключ.
-     * @return значение.
-     */
-    private V getElement(T key) {
-        int position = -1;
-        for (T k : this.keys) {
-            position++;
-            if(k.equals(key)) {
-                break;
-            }
-        }
-        return this.values[position];
-    }
-
-    /**
-     * Метод удаления ключи и значения из массивов.
-     * @param key ключ.
-     */
-    //TODO
-    private void deleteElement(T key) {
-        int position = -1;
-        for (T k : this.keys) {
-            position++;
-            if(k.equals(key)) {
-                break;
-            }
-        }
+        this.keys = bigKeys;
+        this.values = bigValues;
     }
 }
