@@ -32,8 +32,6 @@ public class Handbook<T, V> {
     private MapHandbook[] mapArray = new MapHandbook[16];
 
     private int count = 0;
-    private int lastPosition = 0;
-    private int firstPosition = -1;
 
     /**
      * Метод вставки элемента в спровочник.
@@ -61,16 +59,6 @@ public class Handbook<T, V> {
 
                 this.count++;
 
-                if(index > this.lastPosition) {
-                    this.lastPosition = index;
-                }
-
-                if(this.firstPosition < 0) {
-                    this.firstPosition = index;
-                } else if (this.firstPosition > 0 && this.firstPosition > index) {
-                    this.firstPosition = index;
-                }
-
                 result = true;
             }
         }
@@ -85,10 +73,13 @@ public class Handbook<T, V> {
      */
     public V getElement(T key) {
 
-        if(this.mapArray[key.hashCode() & (this.mapArray.length - 1)] == null) {
+        int index = key.hashCode() & (this.mapArray.length - 1);
+
+        if(this.mapArray[index] == null || !key.equals(this.mapArray[index].key)) {
             throw new NoSuchElementException();
         }
-        return (V) this.mapArray[key.hashCode() & (this.mapArray.length - 1)].value;
+
+        return (V) this.mapArray[index].value;
     }
 
     /**
@@ -104,11 +95,12 @@ public class Handbook<T, V> {
 
             int index = key.hashCode() & (this.mapArray.length - 1);
 
-            if (index < this.mapArray.length) {
+            if(key.equals(this.mapArray[index].key)) {
                 this.mapArray[index] = null;
                 this.count--;
                 result = true;
             }
+
         }
 
         return result;
@@ -119,24 +111,11 @@ public class Handbook<T, V> {
      */
     private void increaseArray() {
 
-        this.lastPosition = 0;
-        this.firstPosition = -1;
-
         MapHandbook[] bigMap = new MapHandbook[this.mapArray.length * 2];
 
         for(MapHandbook mH : this.mapArray) {
             int index = mH.key.hashCode() & (bigMap.length - 1);
             bigMap[index] = mH;
-
-            if(index > this.lastPosition) {
-                this.lastPosition = index;
-            }
-
-            if(this.firstPosition < 0) {
-                this.firstPosition = index;
-            } else if (this.firstPosition > 0 && this.firstPosition > index) {
-                this.firstPosition = index;
-            }
         }
         this.mapArray = bigMap;
     }
@@ -148,14 +127,15 @@ public class Handbook<T, V> {
     public Iterator<MapHandbook> iterator() {
         return new Iterator<MapHandbook>() {
 
-            private int position = firstPosition;
+            private int position = 0;
+            private int iteratorCount = 0;
 
             public boolean hasNext() {
 
                 boolean result = false;
 
-                if(this.position >= 0) {
-                    result = this.position <= lastPosition;
+                if(this.iteratorCount < count) {
+                    result = true;
                 }
                 return result;
             }
@@ -170,6 +150,7 @@ public class Handbook<T, V> {
                     }
                     result = mapArray[this.position];
                     this.position++;
+                    this.iteratorCount++;
                 } else {
                     throw new NoSuchElementException();
                 }
