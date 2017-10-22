@@ -23,10 +23,10 @@ public class User {
         this.birthday = birthday;
     }
 
-//    @Override
-//    public int hashCode() {
-//        return (this.name.hashCode() + this.birthday.hashCode()) * 31 + this.children;
-//    }
+    @Override
+    public int hashCode() {
+        return (this.name.hashCode() + this.birthday.hashCode()) * 31 + this.children;
+    }
 
     @Override
     public boolean equals(Object obj) {
