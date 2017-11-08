@@ -13,12 +13,12 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     /**
      * Класс узла.
-     * @param <E> тип.
+     * @param <T> тип.
      */
-    public class Node<E> {
+    public class Node<T> {
 
-        List<Node<E>> children;
-        E value;
+        List<Node<T>> children;
+        T value;
     }
 
     /**
