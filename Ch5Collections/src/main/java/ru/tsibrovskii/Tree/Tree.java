@@ -10,6 +10,7 @@ import java.util.List;
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     public List<Node<E>> nodes;
+    public List<E> values;
 
     /**
      * Класс узла.
@@ -33,7 +34,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         boolean result = false;
 
         for (Node<E> n : nodes) {
-            if(n.value.compareTo(parent) == 0) {
+            if(n.value.compareTo(parent) == 0 && !values.contains(child)) {
 
                 Node<E> node = new Node<>();
                 node.value = child;
@@ -41,6 +42,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
                 nodes.add(node);
 
                 n.children.add(node);
+                values.add(child);
 
                 result = true;
                 break;
@@ -57,12 +59,14 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     public void addFirst(E parent) {
 
         nodes = new ArrayList<>();
+        values = new ArrayList<>();
 
         Node<E> node = new Node<>();
         node.value = parent;
         node.children = new ArrayList<>();
 
         nodes.add(node);
+        values.add(parent);
     }
 
     /**
