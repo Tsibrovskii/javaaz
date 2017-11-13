@@ -9,17 +9,16 @@ import java.util.List;
  */
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
-    public List<Node<E>> nodes;
-    public List<E> values;
+    public Node<E> root;
 
     /**
      * Класс узла.
-     * @param <T> тип.
+     * @param <E> тип.
      */
-    public class Node<T> {
+    public class Node<E> {
 
-        List<Node<T>> children;
-        T value;
+        List<Node<E>> children;
+        E value;
     }
 
     /**
@@ -31,25 +30,34 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
 
-        boolean result = false;
+        boolean isSuccessfully = true;
 
-        for (Node<E> n : nodes) {
-            if(n.value.compareTo(parent) == 0 && !values.contains(child)) {
-
-                Node<E> node = new Node<>();
-                node.value = child;
-                node.children = new ArrayList<>();
-                nodes.add(node);
-
-                n.children.add(node);
-                values.add(child);
-
-                result = true;
-                break;
-            }
+        if(parent == null || child == null || root.value.compareTo(child) == 0 || foundElement(root.children, child) != null) {
+            isSuccessfully = false;
         }
 
-        return result;
+        if(isSuccessfully && root.value.compareTo(parent) == 0) {
+            Node<E> node = new Node<>();
+            node.value = child;
+            root.children.add(node);
+        }
+
+        if(isSuccessfully) {
+            Node<E> parentElement = foundElement(root.children, parent);
+            if(parentElement == null) {
+                isSuccessfully = false;
+            } else {
+                Node<E> node = new Node<>();
+                node.value = child;
+                if(parentElement.children == null) {
+                    parentElement.children = new ArrayList<>();
+                }
+                parentElement.children.add(node);
+            }
+
+        }
+
+        return isSuccessfully;
     }
 
     /**
@@ -58,15 +66,41 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     public void addFirst(E parent) {
 
-        nodes = new ArrayList<>();
-        values = new ArrayList<>();
-
         Node<E> node = new Node<>();
         node.value = parent;
         node.children = new ArrayList<>();
 
-        nodes.add(node);
-        values.add(parent);
+        root = node;
+    }
+
+    /**
+     * Метод проверки на наличие объекта.
+     * @param nodeList лист.
+     * @param element элемент.
+     * @return результат.
+     */
+    public Node<E> foundElement(List<Node<E>> nodeList, E element) {
+
+        Node<E> foundElement = null;
+
+        for(Node<E> n : nodeList) {
+            if(n.value.compareTo(element) == 0) {
+                foundElement = n;
+                break;
+            }
+        }
+
+        if(foundElement == null) {
+            for (Node<E> n : nodeList) {
+                if (n.children != null && foundElement(n.children, element) != null) {
+                    foundElement = foundElement(n.children, element);
+                    break;
+                }
+            }
+        }
+
+        return foundElement;
+
     }
 
     /**
