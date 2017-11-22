@@ -123,4 +123,47 @@ public class TreeTest {
         next = it.next();
         assertTrue("first".equals(next));
     }
+
+    /**
+     * Тестовый метод.
+     */
+    @Test
+    public void whenCreateBinaryTreeShouldReturnTrue() {
+
+
+        Tree<String> tree = new Tree<>();
+
+        tree.addFirst("first");
+
+        tree.add("first", "second");
+        tree.add("first", "third");
+
+        tree.add("second", "fourth");
+        tree.add("second", "fifth");
+
+        boolean isBinary = tree.isBinary();
+        assertTrue(isBinary);
+    }
+
+    /**
+     * Тестовый метод.
+     */
+    @Test
+    public void whenCreateNotBinaryTreeShouldReturnFalse() {
+
+
+        Tree<String> tree = new Tree<>();
+
+        tree.addFirst("first");
+
+        tree.add("first", "second");
+        tree.add("first", "third");
+
+        tree.add("second", "fourth");
+        tree.add("second", "fifth");
+        tree.add("second", "sixth");
+
+        boolean isBinary = tree.isBinary();
+        assertFalse(isBinary);
+    }
 }

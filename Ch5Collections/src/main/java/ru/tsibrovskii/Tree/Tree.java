@@ -8,6 +8,7 @@ import java.util.*;
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     public Node<E> root;
+    private Node<E> binaryNode;
 
     /**
      * Класс узла.
@@ -56,6 +57,38 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         }
 
         return isSuccessfully;
+    }
+
+    /**
+     * Метод, проверяющий, является ли дерево бинарным.
+     * @return результат проверки.
+     */
+    public boolean isBinary() {
+
+        if(binaryNode == null) {
+            binaryNode = root;
+        }
+
+        boolean isBinary = true;
+
+        if(binaryNode.children != null && !binaryNode.children.isEmpty()) {
+            if(binaryNode.children.size() != 2) {
+                isBinary = false;
+            } else {
+                for(Node n : binaryNode.children) {
+                    binaryNode = n;
+                    isBinary = isBinary();
+                    if(!isBinary) {
+                        if(binaryNode != null) {
+                            binaryNode = null;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        return isBinary;
     }
 
     /**
