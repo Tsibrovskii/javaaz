@@ -1,5 +1,7 @@
 package ru.tsibrovskii.Tree;
 
+import java.util.Optional;
+
 /**
  * Интерфейс дерева.
  */
@@ -19,4 +21,6 @@ public interface SimpleTree<E extends Comparable<E>> extends Iterable<E> {
      * @return результат проверки.
      */
     boolean isBinary();
+
+    Optional<Node<E>> findBy(E value);
 }

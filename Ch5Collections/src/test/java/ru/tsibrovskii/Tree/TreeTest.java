@@ -1,169 +1,74 @@
 package ru.tsibrovskii.Tree;
 
 import org.junit.Test;
-import ru.tsibrovskii.Tree.Tree.Node;
 
 import java.util.Iterator;
-import java.util.List;
 
-import static junit.framework.TestCase.assertFalse;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Тестовый класс.
- */
 public class TreeTest {
 
-    /**
-     * Тестовый метод.
-     */
     @Test
-    public void whenAddElementShouldPastItInCollection() {
-
-        Tree<String> tree = new Tree<>();
-
-        tree.addFirst("first");
-
-        tree.add("first", "second");
-        tree.add("first", "third");
-        tree.add("first", "first");
-
-        tree.add("second", "fourth");
-        tree.add("second", "fifth");
-        tree.add("second", "first");
-
-        System.out.println("Order of iterator" + "\n");
-        for (Node n : tree.root.children) {
-            if(n.children != null) {
-                for (Node m : (List<Node>)n.children) {
-                    System.out.println(m.value);
-                }
-            }
-            System.out.println(n.value);
-        }
-        System.out.println(tree.root.value);
+    public void when6ElFindLastThen6() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertThat(tree.findBy(6).isPresent(), is(true));
     }
 
-    /**
-     * Тестовый метод.
-     */
     @Test
-    public void whenCallHasNextShouldReturnTrueOrFalse() {
-
-        Tree<String> tree = new Tree<>();
-
-        tree.addFirst("first");
-
-        tree.add("first", "second");
-        tree.add("first", "third");
-        tree.add("first", "first");
-
-        tree.add("second", "fourth");
-        tree.add("second", "fifth");
-        tree.add("second", "first");
-
-        Iterator<String> it = tree.iterator();
-
-        boolean isHasNext = it.hasNext();
-        assertTrue(isHasNext);
-
-        it.next();
-        isHasNext = it.hasNext();
-        assertTrue(isHasNext);
-
-        it.next();
-        isHasNext = it.hasNext();
-        assertTrue(isHasNext);
-
-        it.next();
-        isHasNext = it.hasNext();
-        assertTrue(isHasNext);
-
-        it.next();
-        isHasNext = it.hasNext();
-        assertTrue(isHasNext);
-
-        it.next();
-        isHasNext = it.hasNext();
-        assertFalse(isHasNext);
+    public void when6ElFindNotExitThenOptionEmpty() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        assertThat(tree.findBy(7).isPresent(), is(false));
     }
 
-    /**
-     * Тестовый метод.
-     */
-    @Test
-    public void whenCallHasNextShouldReturnNextElement() {
-
-        Tree<String> tree = new Tree<>();
-
-        tree.addFirst("first");
-
-        tree.add("first", "second");
-        tree.add("first", "third");
-        tree.add("first", "first");
-
-        tree.add("second", "fourth");
-        tree.add("second", "fifth");
-        tree.add("second", "first");
-
-        Iterator<String> it = tree.iterator();
-
-        String next = it.next();
-        assertTrue("fourth".equals(next));
-
-        next = it.next();
-        assertTrue("fifth".equals(next));
-
-        next = it.next();
-        assertTrue("second".equals(next));
-
-        next = it.next();
-        assertTrue("third".equals(next));
-
-        next = it.next();
-        assertTrue("first".equals(next));
-    }
-
-    /**
-     * Тестовый метод.
-     */
     @Test
     public void whenCreateBinaryTreeShouldReturnTrue() {
-
-
-        Tree<String> tree = new Tree<>();
-
-        tree.addFirst("first");
-
-        tree.add("first", "second");
-        tree.add("first", "third");
-
-        tree.add("second", "fourth");
-        tree.add("second", "fifth");
-
-        boolean isBinary = tree.isBinary();
-        assertTrue(isBinary);
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertTrue(tree.isBinary());
     }
 
-    /**
-     * Тестовый метод.
-     */
     @Test
     public void whenCreateNotBinaryTreeShouldReturnFalse() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertFalse(tree.isBinary());
+    }
 
+    @Test
+    public void whenRequestElementShouldReturnNextElement() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
 
-        Tree<String> tree = new Tree<>();
+        Iterator<Integer> it = tree.iterator();
 
-        tree.addFirst("first");
-
-        tree.add("first", "second");
-        tree.add("first", "third");
-
-        tree.add("second", "fourth");
-        tree.add("second", "fifth");
-        tree.add("second", "sixth");
-
-        boolean isBinary = tree.isBinary();
-        assertFalse(isBinary);
+        assertTrue(it.hasNext());
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(5));
+        assertThat(it.next(), is(6));
+        assertFalse(it.hasNext());
     }
 }
