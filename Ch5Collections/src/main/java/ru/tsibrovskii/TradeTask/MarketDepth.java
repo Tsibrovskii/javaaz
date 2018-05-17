@@ -12,9 +12,8 @@ public class MarketDepth {
     private final String actionBid = "bid";
     private final Integer negative = -1;
 
-    private List<Order> askOrdersList = new ArrayList<>();
-    private List<Order> bidOrdersList = new ArrayList<>();
-    private Set<String> ordersIdSet = new TreeSet<>();
+    private Map<String, Order> askOrdersMap = new TreeMap<>();
+    private Map<String, Order> bidOrdersMap = new TreeMap<>();
     private Map<Integer, Volumes> volumesMap = new TreeMap<>(Collections.reverseOrder());
 
     /**
@@ -30,6 +29,9 @@ public class MarketDepth {
      * @return set id.
      */
     public Set<String> getOrdersSet() {
+        Set<String> ordersIdSet = new TreeSet<>();
+        ordersIdSet.addAll(askOrdersMap.keySet());
+        ordersIdSet.addAll(bidOrdersMap.keySet());
         return ordersIdSet;
     }
 
@@ -41,12 +43,11 @@ public class MarketDepth {
         Boolean isContinue = recalculateOrders(order);
         if(isContinue) {
             if (actionAsk.equals(order.getAction())) {
-                askOrdersList.add(order);
+                askOrdersMap.put(order.getId(), order);
             } else if (actionBid.equals(order.getAction())) {
-                bidOrdersList.add(order);
+                bidOrdersMap.put(order.getId(), order);
             }
             recalculateVolume(order.getPrice(), order.getAction(), order.getVolume());
-            ordersIdSet.add(order.getId());
         }
     }
 
@@ -56,25 +57,13 @@ public class MarketDepth {
      */
     public void deleteOrderById(String id) {
         Order order = null;
-        Boolean isDeleted = false;
-        for(Order askOrder : askOrdersList) {
-            if(askOrder.getId().equals(id)) {
-                order = askOrder;
-                askOrdersList.remove(askOrder);
-                isDeleted = true;
-                break;
-            }
+        if(askOrdersMap.keySet().contains(id)) {
+            order = askOrdersMap.get(id);
+            askOrdersMap.remove(id);
+        } else if(bidOrdersMap.keySet().contains(id)) {
+            order = bidOrdersMap.get(id);
+            bidOrdersMap.remove(id);
         }
-        if(!isDeleted) {
-            for(Order bidOrder : bidOrdersList) {
-                if(bidOrder.getId().equals(id)) {
-                    order = bidOrder;
-                    bidOrdersList.remove(bidOrder);
-                    break;
-                }
-            }
-        }
-        ordersIdSet.remove(id);
         if(order != null) {
             recalculateVolume(order.getPrice(), order.getAction(), order.getVolume() * negative);
         }
@@ -82,17 +71,17 @@ public class MarketDepth {
 
     private boolean recalculateOrders(Order order) {
         Boolean isContinueAdd = true;
-        List<Order> ordersToDelete = new ArrayList<>();
+        Set<String> idsToDelete = new HashSet<>();
         if(actionAsk.equals(order.getAction())) {
-            for(Order bidOrder : bidOrdersList) {
-                if(bidOrder.getPrice() <= order.getPrice()) {
+            for(Order bidOrder : bidOrdersMap.values()) {
+                if (bidOrder.getPrice() <= order.getPrice()) {
                     if(bidOrder.getVolume() <= order.getVolume()) {
-                        ordersToDelete.add(bidOrder);
-                        recalculateVolume(bidOrder.getPrice(), bidOrder.getAction(), bidOrder.getVolume() * negative);
+                        idsToDelete.add(bidOrder.getId());
+                        recalculateVolume(bidOrder.getPrice(), actionBid, bidOrder.getVolume() * negative);
                         bidOrder.decreaseVolume(bidOrder.getVolume());
                         order.decreaseVolume(bidOrder.getVolume());
                     } else {
-                        recalculateVolume(bidOrder.getPrice(), bidOrder.getAction(), order.getVolume() * negative);
+                        recalculateVolume(bidOrder.getPrice(), actionBid, order.getVolume() * negative);
                         bidOrder.decreaseVolume(order.getVolume());
                         order.decreaseVolume(order.getVolume());
                     }
@@ -102,28 +91,31 @@ public class MarketDepth {
                     break;
                 }
             }
-            bidOrdersList.removeAll(ordersToDelete);
         } else if(actionBid.equals(order.getAction())) {
-            for(Order askOrder : askOrdersList) {
-                if(askOrder.getPrice() >= order.getPrice()) {
-                    if(askOrder.getVolume() <= order.getVolume()) {
-                        ordersToDelete.add(askOrder);
-                        recalculateVolume(askOrder.getPrice(), askOrder.getAction(), askOrder.getVolume() * negative);
+            for (Order askOrder : askOrdersMap.values()) {
+                if (askOrder.getPrice() >= order.getPrice()) {
+                    if (askOrder.getVolume() <= order.getVolume()) {
+                        idsToDelete.add(askOrder.getId());
+                        recalculateVolume(askOrder.getPrice(), actionAsk, askOrder.getVolume() * negative);
                         order.decreaseVolume(askOrder.getVolume());
                         askOrder.decreaseVolume(askOrder.getVolume());
                     } else {
-                        recalculateVolume(askOrder.getPrice(), askOrder.getAction(), order.getVolume() * negative);
+                        recalculateVolume(askOrder.getPrice(), actionAsk, order.getVolume() * negative);
                         askOrder.decreaseVolume(order.getVolume());
                         order.decreaseVolume(order.getVolume());
                     }
                 }
-                if(order.getVolume() == 0) {
+                if (order.getVolume() == 0) {
                     isContinueAdd = false;
                     break;
                 }
             }
-            askOrdersList.removeAll(ordersToDelete);
         }
+
+        for(String id : idsToDelete) {
+            deleteOrderById(id);
+        }
+
         return isContinueAdd;
     }
 
