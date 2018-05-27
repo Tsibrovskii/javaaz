@@ -48,5 +48,6 @@
         <module>Ch5.0.CollectionsLite</module>
         <module>Ch5Collections</module>
         <module>Ch6GarbageCollection</module>
+        <module>Concurrency</module>
 	</modules>
 </project>
