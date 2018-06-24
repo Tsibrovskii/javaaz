@@ -43,8 +43,4 @@ public class UserStorage {
         }
         return result;
     }
-
-    public HashMap<Integer, User> getStorage() {
-        return this.storage;
-    }
 }

@@ -15,11 +15,34 @@ public class User {
         this.amount = amount;
     }
 
+    @Override
+    public synchronized int hashCode() {
+        return this.id + this.amount;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean isEquals = false;
+
+        if(this == obj) {
+            isEquals = true;
+        }
+
+        if(!isEquals && obj != null && this.getClass() == obj.getClass()) {
+            User convertObj = (User) obj;
+            if(this.id == convertObj.id) {
+                isEquals = true;
+            }
+        }
+
+        return isEquals;
+    }
+
     public int getId() {
         return this.id;
     }
 
-    public int getAmount() {
+    public synchronized int getAmount() {
         return this.amount;
     }
 
