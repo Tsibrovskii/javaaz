@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 public class DynamicList<E> implements SimpleContainer<E> {
 
     @GuardedBy("this")
-    private Object[] dynamicArray = new Object[100];
+    private Object[] dynamicArray = new Object[5];
     @GuardedBy("this")
     private int index = 0;
 
